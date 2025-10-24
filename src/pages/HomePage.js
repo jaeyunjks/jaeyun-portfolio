@@ -2,6 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
+// Responsive device hook
+function useIsMobile(breakpoint = 600) {
+    const [isMobile, setIsMobile] = useState(window.innerWidth < breakpoint);
+    useEffect(() => {
+        function handleResize() {
+            setIsMobile(window.innerWidth < breakpoint);
+        }
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [breakpoint]);
+    return isMobile;
+}
+
 function useLoopTyping(text, delay = 50, wait = 1200) {
     const [out, setOut] = useState("");
     const [idx, setIdx] = useState(0);
@@ -18,7 +31,6 @@ function useLoopTyping(text, delay = 50, wait = 1200) {
     return out;
 }
 
-// Pastel, theme-aligned transparent SVGs
 const LinkedInIcon = ({ size = 34 }) => (
     <svg height={size} width={size} viewBox="0 0 32 32" fill="none">
         <rect width="32" height="32" rx="9" fill="#7B9ACC" fillOpacity="0.13" />
@@ -33,12 +45,11 @@ const GithubIcon = ({ size = 34 }) => (
     </svg>
 );
 
-// Animated floating corner social links
-function FloatingSocialLinks() {
+function FloatingSocialLinks({ isMobile }) {
     return (
         <div style={{
-            position: "fixed", right: 28, bottom: 28, zIndex: 99,
-            display: "flex", flexDirection: "column", gap: 15
+            position: "fixed", right: isMobile ? 11 : 28, bottom: isMobile ? 11 : 28, zIndex: 99,
+            display: "flex", flexDirection: "column", gap: isMobile ? 9 : 15
         }}>
             <motion.a
                 href="https://www.linkedin.com/in/yafiefarabi0710/"
@@ -58,7 +69,7 @@ function FloatingSocialLinks() {
                 }}
                 aria-label="LinkedIn"
             >
-                <LinkedInIcon size={38} />
+                <LinkedInIcon size={isMobile ? 30 : 38} />
             </motion.a>
             <motion.a
                 href="https://github.com/jaeyunjks"
@@ -78,54 +89,71 @@ function FloatingSocialLinks() {
                 }}
                 aria-label="GitHub"
             >
-                <GithubIcon size={38} />
+                <GithubIcon size={isMobile ? 30 : 38} />
             </motion.a>
         </div>
     );
 }
 
 export default function HomePage() {
+    const isMobile = useIsMobile();
     const heroTxt = "Hi, I'm Yafie, an aspiring Software Engineer & Business Analyst.";
-    const animated = useLoopTyping(heroTxt, 40, 1700);
+    const animated = useLoopTyping(heroTxt, isMobile ? 27 : 40, 1700);
     const navigate = useNavigate();
+
     return (
         <div style={{
-            minHeight: "88vh", background: "#F9FAFC", display: "flex", flexDirection: "column",
-            alignItems: "center", justifyContent: "center"
+            minHeight: isMobile ? "78vh" : "88vh",
+            background: "#F9FAFC",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100vw",
+            padding: isMobile ? "0 2vw" : 0
         }}>
             <div style={{
                 fontWeight: 900,
-                fontSize: 44,
+                fontSize: isMobile ? 31 : 44,
                 color: "#7B9ACC",
-                letterSpacing: -2,
-                minHeight: 65,
+                letterSpacing: -1.4,
+                minHeight: isMobile ? 40 : 65,
                 textAlign: "center",
                 width: "100%"
             }}>
                 {animated}
             </div>
             <div style={{
-                margin: "40px 0 18px",
-                fontSize: 22,
+                margin: isMobile ? "22px 0 10px" : "40px 0 18px",
+                fontSize: isMobile ? 15 : 22,
                 color: "#232751",
                 opacity: .88,
-                textAlign: "center"
+                textAlign: "center",
+                width: "100%"
             }}>
                 Bachelor of Information Technology | Open for 2025&2026 Internship <br />
                 <span style={{
-                    fontSize: 17,
+                    fontSize: isMobile ? 13 : 17,
                     opacity: .67
-                }}>Enterprise Software Development and Business Information System Management @UTS.</span>
+                }}>Enterprise Software Development & Business Information System Management @UTS.</span>
             </div>
             <button
                 onClick={() => navigate("/contact")}
                 style={{
-                    marginTop: 28, background: "#7B9ACC", color: "#fff", fontWeight: 800,
-                    fontSize: 18, border: 0, borderRadius: 23, padding: "15px 46px", boxShadow: "0 2px 18px #d2ddec33", cursor: "pointer"
+                    marginTop: isMobile ? 16 : 28,
+                    background: "#7B9ACC",
+                    color: "#fff",
+                    fontWeight: 800,
+                    fontSize: isMobile ? 14 : 18,
+                    border: 0,
+                    borderRadius: 23,
+                    padding: isMobile ? "11px 22vw" : "15px 46px",
+                    boxShadow: "0 2px 18px #d2ddec33",
+                    cursor: "pointer"
                 }}>
                 Contact Me
             </button>
-            <FloatingSocialLinks />
+            <FloatingSocialLinks isMobile={isMobile} />
         </div>
     );
 }
