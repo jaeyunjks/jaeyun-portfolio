@@ -26,7 +26,7 @@ const PROJECTS = [
         id: 2,
         title: "Interaction Design Project",
         tech: ["Figma", "UX Research", "Web"],
-        img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&h=380&fit=crop",
+        img: "/ixd.png",
         summary: "UX task manager: research, persona, prototyping, usability, report. Click for project story!",
         details: (
             <>

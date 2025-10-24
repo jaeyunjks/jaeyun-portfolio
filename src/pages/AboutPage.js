@@ -9,20 +9,18 @@ const LANG_SKILLS = [
     { lang: "C++", lvl: 1 },
 ];
 const FRAMEWORKS = [
-    { name: "React", lvl: 2 },
-    { name: "Django", lvl: 1.5 },
-    { name: "ASP.NET MVC", lvl: 1 },
-    { name: "Node.js", lvl: 1 },
+    { name: "React", lvl: 0.5 },
+    { name: "Django", lvl: 0.5 },
+    { name: "Node.js", lvl: 0.5 },
     { name: "JSP", lvl: 1 },
-    { name: "Bootstrap", lvl: 2 }
 ];
 const DEVTOOLS = [
     { name: "Git", lvl: 2 },
     { name: "Jira", lvl: 1.5 },
     { name: "MySQL", lvl: 2 },
-    { name: "MongoDB", lvl: 1 },
+    { name: "MongoDB", lvl: 0.5 },
     { name: "VSCode", lvl: 2 },
-    { name: "Figma", lvl: 1.5 }
+    { name: "Figma", lvl: 1 }
 ];
 const SECTION_TABS = [
     { key: "languages", label: "Languages" },
