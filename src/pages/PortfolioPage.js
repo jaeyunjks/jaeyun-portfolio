@@ -69,6 +69,35 @@ const PROJECTS = [
         summary: "Full stack expense tracking app—record, view, and analyze daily spending. Currently under active development.",
         details: "A work-in-progress expense tracker allowing users to log daily expenses, categorize spending, and visualize data trends. Frontend built with React, backend with Node.js/Express, and data stored in MongoDB. Plans include authentication, analytics dashboard, and responsive design.",
         github: "https://github.com/jaeyunjks/expense-tracker.git"
+    }, {
+        id: 5,
+        title: "SA prject - Event Management System",
+        tech: ["Figma", "UX Research", "Web"],
+        img: "/ixd.png",
+        summary: "UX task manager: research, persona, prototyping, usability, report. Click for project story!",
+        details: (
+            <>
+                <div style={{ fontWeight: 600, marginBottom: 10 }}>Why I Did This?</div>
+                <div>
+                    Assignment project: solving real user pain points in daily task management. Explored full HCI process: found problems, built personas, ideated, tested, refined solutions.
+                </div>
+                <div style={{ margin: "20px 0 10px" }}>
+                    <Link
+                        to="/event-management-case-study"
+                        style={{
+                            background: "#7B9ACC",
+                            color: "#fff",
+                            borderRadius: 9,
+                            fontWeight: 700,
+                            padding: "8px 15px",
+                            textDecoration: "none"
+                        }}
+                    >
+                        View Full Case
+                    </Link>
+                </div>
+            </>
+        )
     }
 ];
 

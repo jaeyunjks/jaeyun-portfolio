@@ -6,6 +6,7 @@ import WorkPage from "./pages/WorkPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import ContactPage from "./pages/ContactPage";
 import InteractionDesignCase from "./pages/InteractionDesignCase";
+import EventManagementCaseStudy from "./pages/EventManagementCaseStudy";
 
 // Responsive device hook
 function useIsMobile(breakpoint = 600) {
@@ -174,6 +175,7 @@ export default function App() {
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/interaction-design-case" element={<InteractionDesignCase />} />
+        <Route path="/event-management-case-study" element={<EventManagementCaseStudy />} />
       </Routes>
     </Router>
   );
