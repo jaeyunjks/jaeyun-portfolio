@@ -1,181 +1,231 @@
 import React, { useState, useEffect } from "react";
 
-// Skills data as before
+/* ────────────────────── DATA ────────────────────── */
 const LANG_SKILLS = [
-    { lang: "Java", lvl: 2 },
-    { lang: "Python", lvl: 2 },
-    { lang: "HTML/CSS/JS", lvl: 2 },
-    { lang: "SQL", lvl: 1.5 },
-    { lang: "C++", lvl: 1 },
+    { name: "Java", lvl: 2 },
+    { name: "Python", lvl: 2 },
+    { name: "HTML/CSS/JS", lvl: 2 },
+    { name: "SQL", lvl: 1.5 },
+    { name: "C++", lvl: 1 },
 ];
+
 const FRAMEWORKS = [
     { name: "React", lvl: 0.5 },
     { name: "Django", lvl: 0.5 },
     { name: "Node.js", lvl: 0.5 },
     { name: "JSP", lvl: 1 },
+    { name: "Spring Boot", lvl: 0.5 },
+    { name: "Vue.js", lvl: 0.5 },
 ];
+
 const DEVTOOLS = [
     { name: "Git", lvl: 2 },
     { name: "Jira", lvl: 1.5 },
     { name: "MySQL", lvl: 2 },
     { name: "MongoDB", lvl: 0.5 },
     { name: "VSCode", lvl: 2 },
-    { name: "Figma", lvl: 1 }
+    { name: "Figma", lvl: 1 },
+    { name: "Docker", lvl: 0.5 },
+    { name: "Postman", lvl: 1 },
 ];
+
 const SECTION_TABS = [
     { key: "languages", label: "Languages" },
     { key: "frameworks", label: "Frameworks / Tech" },
     { key: "tools", label: "Dev Tools" },
 ];
 
-// Responsive detector hook
-function useIsMobile(breakpoint = 600) {
+/* ────────────────────── HOOKS ────────────────────── */
+function useIsMobile(breakpoint = 640) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < breakpoint);
     useEffect(() => {
-        function handleResize() {
-            setIsMobile(window.innerWidth < breakpoint);
-        }
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        const onResize = () => setIsMobile(window.innerWidth < breakpoint);
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
     }, [breakpoint]);
     return isMobile;
 }
 
-// Animated bar component (responsive width)
-function AnimatedBar({ value, max = 2, color = "#7B9ACC", label }) {
+/* ────────────────────── ANIMATED BAR ────────────────────── */
+function AnimatedBar({ label, value, color, delay = 0 }) {
     const isMobile = useIsMobile();
     const [width, setWidth] = useState(0);
+    const max = 2;
+
     useEffect(() => {
-        setTimeout(() => setWidth((value / max) * 100), 200);
-    }, [value, max]);
-    const barWidth = isMobile ? "92vw" : 260;
+        const timer = setTimeout(() => setWidth((value / max) * 100), 150 + delay * 80);
+        return () => clearTimeout(timer);
+    }, [value, max, delay]);
+
+    const display = value < 1 ? "less than a year" : `${value} yr${value > 1 ? "s" : ""}`;
+
     return (
-        <div style={{
-            background: "#D0DEFA",
-            height: isMobile ? 22 : 24,
-            borderRadius: 16,
-            minWidth: isMobile ? 80 : 60,
-            marginTop: isMobile ? 9 : 6,
-            marginBottom: isMobile ? 7 : 4,
-            position: "relative",
-            width: barWidth,
-            maxWidth: isMobile ? "99vw" : "60vw",
-            overflow: "hidden"
-        }}>
-            <div style={{
-                height: isMobile ? 22 : 24,
-                borderRadius: 16,
-                background: color,
-                width: `${width}%`,
-                color: "#fff",
-                fontWeight: 800,
-                textAlign: "center",
-                position: "absolute",
-                transition: "width .8s cubic-bezier(.81,-0.22,.32,1.17)"
-            }}>
-                <span style={{
+        <div
+            style={{
+                background: "#E6EBF5",
+                height: isMobile ? 36 : 40,
+                borderRadius: 20,
+                margin: isMobile ? "10px 0" : "8px 0",
+                position: "relative",
+                width: isMobile ? "92vw" : 340,
+                maxWidth: isMobile ? "99vw" : 420,
+                overflow: "hidden",
+                boxShadow: "inset 0 1px 3px #00000012",
+            }}
+        >
+            <div
+                style={{
+                    height: "100%",
+                    width: `${width}%`,
+                    background: `linear-gradient(90deg, ${color}dd, ${color})`,
+                    borderRadius: 20,
+                    transition: "width 1s cubic-bezier(.34,1.06,.64,1)",
+                }}
+            />
+            <div
+                style={{
                     position: "absolute",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "90%",
-                    textAlign: "center",
-                    fontSize: isMobile ? 14 : 16,
-                }}>
-                    {label} {value} yr
+                    inset: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    paddingLeft: isMobile ? 16 : 18,
+                    fontWeight: 700,
+                    fontSize: isMobile ? 14.5 : 16,
+                    color: width > 30 ? "#fff" : "#232751",
+                    transition: "color .3s",
+                }}
+            >
+                <span style={{ marginRight: 12 }}>{label}</span>
+                <span style={{ marginLeft: "auto", marginRight: 16, fontSize: isMobile ? 13 : 14 }}>
+                    {display}
                 </span>
             </div>
         </div>
     );
 }
 
+/* ────────────────────── MAIN COMPONENT ────────────────────── */
 export default function AboutPage() {
     const [section, setSection] = useState("languages");
     const isMobile = useIsMobile();
 
-    let skillList;
-    if (section === "languages") skillList = LANG_SKILLS.map(s =>
-        <AnimatedBar key={s.lang} value={s.lvl} label={s.lang + ":"} color="#7B9ACC" />
-    );
-    if (section === "frameworks") skillList = FRAMEWORKS.map(f =>
-        <AnimatedBar key={f.name} value={f.lvl} label={f.name + ":"} color="#A4B0E9" />
-    );
-    if (section === "tools") skillList = DEVTOOLS.map(t =>
-        <AnimatedBar key={t.name} value={t.lvl} label={t.name + ":"} color="#BAC8E0" />
-    );
+    const dataMap = {
+        languages: { list: LANG_SKILLS, colour: "#7B9ACC" },
+        frameworks: { list: FRAMEWORKS, colour: "#6A8BD6" },
+        tools: { list: DEVTOOLS, colour: "#5A7BC5" },
+    };
+    const { list, colour } = dataMap[section];
 
     return (
-        <div
+        <section
             style={{
-                maxWidth: isMobile ? "97vw" : 700,
-                margin: isMobile ? "22px auto" : "60px auto",
+                maxWidth: isMobile ? "97vw" : 780,
+                margin: isMobile ? "24px auto" : "70px auto",
+                padding: isMobile ? "0 4vw" : "0 20px",
+                fontFamily: "'Segoe UI', Arial, sans-serif",
                 color: "#232751",
-                padding: isMobile ? "0 4vw" : "0 18px"
-            }}>
+            }}
+        >
             <h1
                 style={{
                     fontWeight: 900,
-                    fontSize: isMobile ? 27 : 38,
-                    color: "#7B9ACC",
-                    marginBottom: isMobile ? 17 : 24
-                }}
-            >About Me</h1>
-            <p
-                style={{
-                    fontSize: isMobile ? 15 : 18,
-                    margin: isMobile ? "16px 0" : "34px 0",
-                    color: "#334",
-                    lineHeight: isMobile ? 1.56 : 1.7,
-                    textAlign: isMobile ? "justify" : "left"
+                    fontSize: isMobile ? 30 : 42,
+                    background: "linear-gradient(90deg,#7B9ACC,#5A7BC5)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    marginBottom: isMobile ? 18 : 28,
+                    textAlign: isMobile ? "center" : "left",
                 }}
             >
-                I’m really interested in front-end development because I enjoy turning ideas and designs into something interactive and alive. I like the balance between logic and creativity, writing code that not only works but also looks clean and intuitive. When I started learning HTML and CSS, I realised I actually enjoy making things functional rather than only focusing on the visual side. But I still value good design, so I always try to follow design principles and make sure my code represents the original concept properly.
+                About Me
+            </h1>
+
+            <p
+                style={{
+                    fontSize: isMobile ? 15.5 : 18,
+                    lineHeight: isMobile ? 1.7 : 1.8,
+                    color: "#334466",
+                    textAlign: isMobile ? "justify" : "left",
+                    margin: isMobile ? "18px 0 28px" : "32px 0 40px",
+                }}
+            >
+                Software Development student passionate about <strong>front-end</strong> — crafting clean, interactive UI with
+                <strong> HTML, CSS, JavaScript & React</strong>. <br /><br />
+                Expanding into <strong>backend</strong> with <strong>Spring Boot</strong> and <strong>Vue.js</strong>, plus
+                <strong> DevOps</strong> (Docker, CI/CD). <br /><br />
+                Also exploring <strong>React Native</strong>, QA, and business analysis.
             </p>
+
             <div
                 style={{
                     display: "flex",
                     flexDirection: isMobile ? "column" : "row",
                     justifyContent: "center",
-                    alignItems: "center",
-                    gap: isMobile ? 10 : 25,
-                    margin: isMobile ? "20px 0" : "38px 0",
-                    minHeight: isMobile ? 30 : 40,
-                    width: "100%",
+                    gap: isMobile ? 12 : 20,
+                    margin: isMobile ? "24px 0" : "44px 0",
                 }}
             >
-                {SECTION_TABS.map(tab => (
+                {SECTION_TABS.map((tab) => (
                     <button
                         key={tab.key}
                         onClick={() => setSection(tab.key)}
                         style={{
-                            background: section === tab.key ? "#7B9ACC" : "#ECEFFE",
+                            flex: isMobile ? 1 : "none",
+                            background: section === tab.key ? "linear-gradient(135deg,#7B9ACC,#5A7BC5)" : "#F0F4FF",
                             color: section === tab.key ? "#fff" : "#232751",
                             fontWeight: 700,
-                            border: 0,
-                            borderRadius: 11,
-                            padding: isMobile ? "7px 14vw" : "9px 28px",
                             fontSize: isMobile ? 15 : 17,
-                            boxShadow: section === tab.key ? "0 2px 12px #acbedd35" : "none",
-                            transition: "all .16s",
-                            marginBottom: isMobile ? 7 : 0
+                            padding: isMobile ? "11px 20px" : "12px 32px",
+                            border: "none",
+                            borderRadius: 14,
+                            boxShadow: section === tab.key ? "0 4px 16px #7B9ACC44" : "0 1px 3px #00000012",
+                            transition: "all .22s ease",
+                            cursor: "pointer",
+                        }}
+                        onMouseEnter={(e) => {
+                            if (section !== tab.key) e.currentTarget.style.background = "#E1E8F7";
+                        }}
+                        onMouseLeave={(e) => {
+                            if (section !== tab.key) e.currentTarget.style.background = "#F0F4FF";
                         }}
                     >
                         {tab.label}
                     </button>
                 ))}
             </div>
+
             <div
                 style={{
-                    minHeight: isMobile ? 110 : 320,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    justifyContent: "flex-start",
                     width: "100%",
-                    transition: "all .35s"
+                    minHeight: 300,
+                    padding: isMobile ? "8px 0" : "12px 0",
                 }}
             >
-                {skillList}
+                {list.map((item, i) => (
+                    <AnimatedBar
+                        key={item.name}
+                        label={item.name}
+                        value={item.lvl}
+                        color={colour}
+                        delay={i}
+                    />
+                ))}
             </div>
-        </div>
+
+            <p
+                style={{
+                    textAlign: "center",
+                    marginTop: 32,
+                    fontSize: 13,
+                    color: "#7788AA",
+                    fontStyle: "italic",
+                }}
+            >
+                * Experience measured in years of active use
+            </p>
+        </section>
     );
 }

@@ -14,15 +14,6 @@ function useIsMobile(breakpoint = 600) {
 
 const PROJECTS = [
     {
-        id: 1,
-        title: "IoTBay - IoT Devices Ordering",
-        tech: ["Java", "JSP", "MVC", "MySQL"],
-        img: "https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=700&h=380&fit=crop",
-        summary: "E-commerce webapp for IoT devices. Full shipment management CRUD, secure backend, Agile team.",
-        details: "IoTBay lets customers browse, order, and track IoT devices like sensors/actuators. Implemented key shipment module, login system, and optimized data retrieval.",
-        github: "https://github.com/jaeyunjks/IOTBay.git"
-    },
-    {
         id: 2,
         title: "Interaction Design Project",
         tech: ["Figma", "UX Research", "Web"],
@@ -56,31 +47,32 @@ const PROJECTS = [
         id: 3,
         title: "DSA Directed Graph",
         tech: ["C++", "Graph Theory", "Algorithms", "OOP"],
-        img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=700&h=380&fit=crop",
+        img: "/DSA.png",
         summary: "C++ implementation for directed graph data structure, supporting core operations and traversal algorithms.",
         details: "A command-line program written in C++ for creating and manipulating directed graphs. Supports adding vertices and edges, displaying adjacency lists, and performing BFS & DFS traversals. Built using STL containers for efficient storage and modular design patterns.",
         github: "https://github.com/jaeyunjks/Directed_Graph"
     },
     {
         id: 4,
-        title: "Expense Tracker (In Progress)",
-        tech: ["React", "Node.js", "Express", "MongoDB", "Full Stack"],
-        img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=700&h=380&fit=crop",
-        summary: "Full stack expense tracking app—record, view, and analyze daily spending. Currently under active development.",
-        details: "A work-in-progress expense tracker allowing users to log daily expenses, categorize spending, and visualize data trends. Frontend built with React, backend with Node.js/Express, and data stored in MongoDB. Plans include authentication, analytics dashboard, and responsive design.",
-        github: "https://github.com/jaeyunjks/expense-tracker.git"
+        title: "Random Meal Generator (In Progress)",
+        tech: ["React"],
+        img: "/food.png",
+        summary: "in progress..",
+        details: "in progress..",
+        github: "https://github.com/jaeyunjks/random-meal-generator"
     }, {
         id: 5,
-        title: "SA prject - Event Management System",
-        tech: ["Figma", "UX Research", "Web"],
-        img: "/ixd.png",
-        summary: "UX task manager: research, persona, prototyping, usability, report. Click for project story!",
+        title: "Software Architecture - Event Management System",
+        tech: ["C4 Model", "Microservices", "Event-Driven"],
+        img: "/software architecture.png",
+        summary: "Proposed a scalable Event Management & Ticketing Platform with customizable event pages, dynamic pricing, real-time ticketing, secure payments, social media integration, and post-event analytics. Designed using cloud-native microservices to achieve 10K TPS, 99.9% uptime, and 40% cost efficiency.",
         details: (
             <>
                 <div style={{ fontWeight: 600, marginBottom: 10 }}>Why I Did This?</div>
                 <div>
-                    Assignment project: solving real user pain points in daily task management. Explored full HCI process: found problems, built personas, ideated, tested, refined solutions.
-                </div>
+                    The goal of this project was to demonstrate industry-standard practices by:
+                    Defining context, stakeholders, risks, and quality attributes. Proposing a scalable, cloud-native microservices architecture. Justifying decisions across system qualities, data management, security, cloud adoption, and optional AI/ML & IoT. Delivering iterative progress via weekly peer reviews
+                </div>.
                 <div style={{ margin: "20px 0 10px" }}>
                     <Link
                         to="/event-management-case-study"
@@ -93,12 +85,20 @@ const PROJECTS = [
                             textDecoration: "none"
                         }}
                     >
-                        View Full Case
+                        View Project
                     </Link>
                 </div>
             </>
         )
-    }
+    }, {
+        id: 1,
+        title: "IoTBay - IoT Devices Ordering",
+        tech: ["Java", "JSP", "MVC", "MySQL"],
+        img: "/iotbay.png",
+        summary: "E-commerce webapp for IoT devices. Full shipment management CRUD, secure backend, Agile team.",
+        details: "IoTBay lets customers browse, order, and track IoT devices like sensors/actuators. Implemented key shipment module, login system, and optimized data retrieval.",
+        github: "https://github.com/jaeyunjks/IOTBay.git"
+    },
 ];
 
 export default function PortfolioPage() {
