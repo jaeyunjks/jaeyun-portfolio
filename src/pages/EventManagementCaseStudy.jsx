@@ -372,19 +372,19 @@ export default function EventManagementCaseStudy() {
                             title: "Container View",
                             desc: "High-level technology choices",
                             details: "Web app, mobile apps, API gateway, microservices, database clusters, and serverless functions.",
-                            images: ["container1.png", "container2.png", "container3.png"]
+                            images: ["Container1.png", "Container2.png", "Container3.png"]
                         },
                         {
                             title: "Component View",
                             desc: "Internal structure and modules",
                             details: "Event management, ticketing engine, payment processor, notification service, analytics module.",
-                            images: ["component1.png", "component2.png", "component3.png"]
+                            images: ["Component1.png", "Component2.png", "Component3.png"]
                         },
                         {
                             title: "Code View",
                             desc: "Code structure, modeling, and design",
                             details: "Code organization, domain modeling, and physical data structures.",
-                            images: ["code3.png", "code2.png", "code2.png"],
+                            images: ["Code3.png", "Code2.png", "Code2.png"],
                             codeView: true
                         },
                         {
