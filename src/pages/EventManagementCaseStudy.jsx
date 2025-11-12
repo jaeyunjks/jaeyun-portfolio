@@ -49,7 +49,7 @@ function Modal({ open, onClose, children, large = false }) {
                 <button
                     style={{
                         position: 'absolute', top: 12, right: 24, fontSize: 32,
-                        background: 'none', border: 'none', color: '#2073cd', fontWeight: 900, cursor: 'pointer'
+                        background: 'none', border: 'none', color: '#7B9ACC', fontWeight: 900, cursor: 'pointer'
                     }}
                     onClick={onClose}
                 >×</button>

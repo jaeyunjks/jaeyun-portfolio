@@ -14,6 +14,70 @@ function useIsMobile(breakpoint = 600) {
 
 const PROJECTS = [
     {
+        id: 5,
+        title: "Software Architecture - Event Management System",
+        tech: ["C4 Model", "Microservices", "Event-Driven"],
+        img: "/software architecture.png",
+        summary: "Proposed a scalable Event Management & Ticketing Platform with customizable event pages, dynamic pricing, real-time ticketing, secure payments, social media integration, and post-event analytics. Designed using cloud-native microservices to achieve 10K TPS, 99.9% uptime, and 40% cost efficiency.",
+        details: (
+            <>
+                <div style={{ fontWeight: 600, marginBottom: 10 }}>Why I Did This?</div>
+                <div>
+                    The goal of this project was to demonstrate industry-standard practices by:
+                    Defining context, stakeholders, risks, and quality attributes. Proposing a scalable, cloud-native microservices architecture. Justifying decisions across system qualities, data management, security, cloud adoption, and optional AI/ML & IoT. Delivering iterative progress via weekly peer reviews
+                </div>.
+                <div style={{ margin: "20px 0 10px" }}>
+                    <Link
+                        to="/event-management-case-study"
+                        style={{
+                            background: "#7B9ACC",
+                            color: "#fff",
+                            borderRadius: 9,
+                            fontWeight: 700,
+                            padding: "8px 15px",
+                            textDecoration: "none"
+                        }}
+                    >
+                        View Project
+                    </Link>
+                </div>
+            </>
+        )
+    }, {
+        id: 6,
+        title: "E2E Automation & Test Quality System",
+        tech: ["Risk-Based Testing", "Selenium", "TestCafe"],
+        img: "/EST.png",
+        summary: "Automated 9 critical user flows with 88.89% pass rate. Built full test quality system with planning, execution, and reporting.",
+        details: (
+            <>
+                <div style={{ fontWeight: 600, marginBottom: 10 }}>Project Overview</div>
+                <div>
+                    • Designed <strong>E2E test processes</strong> for Poco Mega Store using Gantt planning (C.1)<br />
+                    • Applied <strong>quality management principles</strong>: traceability, risk-based execution (D.1)<br />
+                    • Executed <strong>9 functional tests</strong> with Selenium & TestCafe (D.1)<br />
+                    • Built full <strong>test quality system</strong>: planning, automation, reporting (E.1)<br />
+                    • Achieved <strong>88.89% pass rate</strong> — found 1 critical failure
+                </div>
+                <div style={{ margin: "20px 0 10px" }}>
+                    <Link
+                        to="/stqm-case-study"
+                        style={{
+                            background: "#7B9ACC",
+                            color: "#fff",
+                            borderRadius: 9,
+                            fontWeight: 700,
+                            padding: "8px 15px",
+                            textDecoration: "none"
+                        }}
+                    >
+                        View My Work
+                    </Link>
+                </div>
+            </>
+        )
+    },
+    {
         id: 2,
         title: "Interaction Design Project",
         tech: ["Figma", "UX Research", "Web"],
@@ -60,36 +124,6 @@ const PROJECTS = [
         summary: "in progress..",
         details: "in progress..",
         github: "https://github.com/jaeyunjks/random-meal-generator"
-    }, {
-        id: 5,
-        title: "Software Architecture - Event Management System",
-        tech: ["C4 Model", "Microservices", "Event-Driven"],
-        img: "/software architecture.png",
-        summary: "Proposed a scalable Event Management & Ticketing Platform with customizable event pages, dynamic pricing, real-time ticketing, secure payments, social media integration, and post-event analytics. Designed using cloud-native microservices to achieve 10K TPS, 99.9% uptime, and 40% cost efficiency.",
-        details: (
-            <>
-                <div style={{ fontWeight: 600, marginBottom: 10 }}>Why I Did This?</div>
-                <div>
-                    The goal of this project was to demonstrate industry-standard practices by:
-                    Defining context, stakeholders, risks, and quality attributes. Proposing a scalable, cloud-native microservices architecture. Justifying decisions across system qualities, data management, security, cloud adoption, and optional AI/ML & IoT. Delivering iterative progress via weekly peer reviews
-                </div>.
-                <div style={{ margin: "20px 0 10px" }}>
-                    <Link
-                        to="/event-management-case-study"
-                        style={{
-                            background: "#7B9ACC",
-                            color: "#fff",
-                            borderRadius: 9,
-                            fontWeight: 700,
-                            padding: "8px 15px",
-                            textDecoration: "none"
-                        }}
-                    >
-                        View Project
-                    </Link>
-                </div>
-            </>
-        )
     }, {
         id: 1,
         title: "IoTBay - IoT Devices Ordering",
