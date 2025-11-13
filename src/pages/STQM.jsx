@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-    Code, CheckCircle, ArrowRight, FileText, Users, Globe, Zap, Shield,
+    Code, CheckCircle, ArrowRight, FileText, Globe, Zap, Shield,
     Moon, Sun, Download, ExternalLink, Lock
 } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
@@ -968,7 +968,7 @@ function Impact({ theme }) {
 
 // === REUSABLE COMPONENTS ===
 const iconBtn = { background: 'transparent', border: 'none', cursor: 'pointer', padding: '8px', borderRadius: '8px' };
-const ctaBtn = { background: 'white', color: '#5DADE2', padding: '14px 32px', borderRadius: '50px', fontWeight: 600, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' };
+// const ctaBtn = { background: 'white', color: '#5DADE2', padding: '14px 32px', borderRadius: '50px', fontWeight: 600, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' };
 const sectionStyle = (t) => ({ background: t.surface, padding: '40px', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' });
 const titleStyle = (t) => ({ fontSize: '2rem', fontWeight: 700, textAlign: 'center', margin: '0 0 10px', color: t.text });
 const th = { padding: '14px', textAlign: 'left', fontWeight: 600 };
