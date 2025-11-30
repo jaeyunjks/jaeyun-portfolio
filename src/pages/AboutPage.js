@@ -7,6 +7,8 @@ const LANG_SKILLS = [
     { name: "HTML/CSS/JS", lvl: 2 },
     { name: "SQL", lvl: 1.5 },
     { name: "C++", lvl: 1 },
+    { name: "Swift", lvl: 1 },
+    { name: "TypeScript", lvl: 1 },
 ];
 
 const FRAMEWORKS = [

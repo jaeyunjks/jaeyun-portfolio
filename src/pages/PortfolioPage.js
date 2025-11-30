@@ -117,6 +117,51 @@ const PROJECTS = [
                 </div>
             </>
         )
+    }, {
+        id: 3,
+        title: "Final Room Checklist",
+        tech: ["Next.js 16", "TypeScript", "Tailwind v4", "Zustand", "ShadCN/UI", "PWA"],
+        img: "/old-city-view.png",
+        summary: "Luxury mobile web app for 5-star hotel supervisors to complete final room inspection in under 45 seconds — no paper, no backend, fully offline.",
+        details: (
+            <>
+                <div style={{ fontWeight: 600, marginBottom: 10 }}>Project Overview</div>
+                <div style={{ lineHeight: 1.7 }}>
+                    • Built a beautiful glassmorphism PWA with one-tap checklist (Bathroom • Bedroom • Mini Bar)<br />
+                    • Persistent notes field + auto-save via Zustand & LocalStorage<br />
+                    • Instant navigation, fully offline, installable on iOS/Android<br />
+                    • Deployed as static site on Vercel — zero server cost<br />
+                    • Feels like a real native luxury hotel app
+                </div>
+                <div style={{ marginTop: 16 }}>
+                    <a
+                        href="https://supervisor-checklist.vercel.app"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                            background: "#7B9ACC",
+                            color: "#fff",
+                            borderRadius: 10,
+                            fontWeight: 700,
+                            padding: "9px 18px",
+                            textDecoration: "none",
+                            display: "inline-block",
+                            fontSize: 14
+                        }}
+                    >
+                        View My Work
+                    </a>
+                </div>
+            </>
+        )
+    }, {
+        id: 3,
+        title: "Productivity Dashboard",
+        tech: ["Swift", "SwiftUI"],
+        img: "/swift.png",
+        summary: "Productivity iOS app with task management, Pomodoro timer, habit tracking, Affirmations,etc. [COMING SOON]",
+        details: "User can view positive affirmations to help make major shifts in their mindset and serve as prompts and daily reminders to ensure every day is an amazing day.",
+        github: "https://github.com/jaeyunjks/ProductivityDashboard"
     },
     {
         id: 3,
@@ -126,8 +171,7 @@ const PROJECTS = [
         summary: "C++ implementation for directed graph data structure, supporting core operations and traversal algorithms.",
         details: "A command-line program written in C++ for creating and manipulating directed graphs. Supports adding vertices and edges, displaying adjacency lists, and performing BFS & DFS traversals. Built using STL containers for efficient storage and modular design patterns.",
         github: "https://github.com/jaeyunjks/Directed_Graph"
-    },
-    {
+    }, {
         id: 4,
         title: "Random Meal Generator (In Progress)",
         tech: ["React, JavaScript"],
