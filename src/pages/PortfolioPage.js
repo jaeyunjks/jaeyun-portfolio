@@ -181,10 +181,10 @@ const PROJECTS = [
         github: "https://github.com/jaeyunjks/Directed_Graph"
     }, {
         id: 4,
-        title: "Random Meal Generator (In Progress)",
+        title: "MoodBite (In Progress)",
         tech: ["React, JavaScript"],
-        img: "/food.png",
-        summary: "in progress..",
+        img: "/MoodBite.png",
+        summary: "Random Meal Generator including recipe suggestions based on user's current mood and dietary preferences.",
         details: "in progress..",
         github: "https://github.com/jaeyunjks/random-meal-generator"
     },
