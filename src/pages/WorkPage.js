@@ -25,10 +25,10 @@ const WORKS = [
     {
         role: "Supervisor",
         company: "Global Hospitality Solutions pty Ltd.",
-        period: "Jan 2025 – Present",
+        period: "Jan 2025 – Oct 2025",
         location: "Sydney, Australia",
         summary:
-            "Managed a team of 20+ staff, coordinating schedules and workflows to ensure operational efficiency and high-quality service. Optimised processes and tracking systems, improving task completion accuracy by 25%. Leveraged problem-solving and communication skills to resolve operational challenges, demonstrating teamwork, leadership, and adaptability in an Australian workplace environment.",
+            "Managed a housekeeping team of 20+ staff, coordinating workflows to ensure operational efficiency and high-quality service. Optimised processes and tracking systems, improving task completion accuracy by 25%. Leveraged problem-solving and communication skills to resolve operational challenges, demonstrating teamwork, leadership, and adaptability in an Australian workplace environment.",
         stack: [
             {
                 name: "Teamwork, Resilience, and Collaboration",
@@ -66,7 +66,7 @@ const WORKS = [
         stack: [
             {
                 name: "Operational Leadership & Team Coordination",
-                what: "Managed day-to-day operations across Housekeeping and Security, aligning staff schedules with occupancy forecasts using Preno and ensuring consistent delivery of luxury hotel standards.",
+                what: "Managed day-to-day operations across Housekeeping, aligning staff schedules with occupancy forecasts using Preno and ensuring consistent delivery of luxury hotel standards.",
                 achieve: "Enhanced workflow consistency and improved service reliability by coordinating a diverse team and establishing structured operational routines.",
                 it: "Project coordination, sprint planning, cross-functional collaboration."
             },
@@ -98,9 +98,6 @@ const WORKS = [
     }
 ];
 
-/* -------------------------------------------------
-   Skill Pill – DI FIX CUMA 1 BARIS: pointerEvents: "none" di wrapper
-------------------------------------------------- */
 function SkillPill({ skill, isMobile }) {
     const [show, setShow] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);

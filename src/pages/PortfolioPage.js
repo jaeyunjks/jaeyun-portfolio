@@ -156,6 +156,14 @@ const PROJECTS = [
         )
     }, {
         id: 3,
+        title: "Lume - Productivity App",
+        tech: ["JavaScript"],
+        img: "/lume.png",
+        summary: "Lume is a minimalist, offline-first productivity dashboard built with React and Tailwind CSS. It combines a clean Kanban board, customisable Pomodoro focus sessions with time tracking, daily task planning, calendar-based progress insights with streak visualisation, and a private daily reflection journal — all stored securely in the browser via localStorage. Designed for calm, intentional focus.",
+        details: "Lume is a local-only productivity tool for focused work and mindful reflection. Built with React, Tailwind CSS, React Router, Recharts, and react-calendar, it runs 100% offline with full data persistence in the browser — no account, no tracking, no server.",
+        github: "https://github.com/jaeyunjks/productive-app.git"
+    }, {
+        id: 3,
         title: "Productivity Dashboard",
         tech: ["Swift", "SwiftUI"],
         img: "/swift.png",

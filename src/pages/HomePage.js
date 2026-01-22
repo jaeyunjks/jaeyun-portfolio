@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
 // Responsive device hook
 function useIsMobile(breakpoint = 600) {
@@ -48,8 +49,13 @@ const GithubIcon = ({ size = 34 }) => (
 function FloatingSocialLinks({ isMobile }) {
     return (
         <div style={{
-            position: "fixed", right: isMobile ? 11 : 28, bottom: isMobile ? 11 : 28, zIndex: 99,
-            display: "flex", flexDirection: "column", gap: isMobile ? 9 : 15
+            position: "fixed",
+            right: isMobile ? 11 : 28,
+            bottom: isMobile ? 11 : 28,
+            zIndex: 99,
+            display: "flex",
+            flexDirection: "column",
+            gap: isMobile ? 9 : 15
         }}>
             <motion.a
                 href="https://www.linkedin.com/in/yafiefarabi0710/"
@@ -58,14 +64,14 @@ function FloatingSocialLinks({ isMobile }) {
                 initial={{ opacity: 0, scale: 0.76, y: 60 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 370, damping: 16, delay: 0.18 }}
-                whileHover={{
-                    scale: [1, 1.08, 1], opacity: 0.88,
-                    transition: { type: "tween", duration: .68 }
-                }}
+                whileHover={{ scale: [1, 1.08, 1], opacity: 0.88 }}
                 style={{
-                    borderRadius: "50%", padding: 0,
-                    background: "transparent", display: "flex", alignItems: "center",
-                    boxShadow: "0 1.5px 9px #7B9ACC22"
+                    borderRadius: "50%",
+                    padding: 0,
+                    background: "transparent",
+                    display: "flex",
+                    alignItems: "center",
+                    boxShadow: "0 1.5px 9px rgba(0,0,0,0.15)"
                 }}
                 aria-label="LinkedIn"
             >
@@ -78,14 +84,14 @@ function FloatingSocialLinks({ isMobile }) {
                 initial={{ opacity: 0, scale: 0.76, y: 60 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 352, damping: 16, delay: 0.24 }}
-                whileHover={{
-                    scale: [1, 1.08, 1], opacity: 0.86,
-                    transition: { type: "tween", duration: .68 }
-                }}
+                whileHover={{ scale: [1, 1.08, 1], opacity: 0.86 }}
                 style={{
-                    borderRadius: "50%", padding: 0,
-                    background: "transparent", display: "flex", alignItems: "center",
-                    boxShadow: "0 1.5px 9px #23275122"
+                    borderRadius: "50%",
+                    padding: 0,
+                    background: "transparent",
+                    display: "flex",
+                    alignItems: "center",
+                    boxShadow: "0 1.5px 9px rgba(0,0,0,0.15)"
                 }}
                 aria-label="GitHub"
             >
@@ -97,62 +103,87 @@ function FloatingSocialLinks({ isMobile }) {
 
 export default function HomePage() {
     const isMobile = useIsMobile();
+    const { theme } = useTheme();
     const heroTxt = "Hi, I'm Yafie, an aspiring Software Engineer & Business Analyst.";
     const animated = useLoopTyping(heroTxt, isMobile ? 27 : 40, 1700);
     const navigate = useNavigate();
 
     return (
         <div style={{
-            minHeight: isMobile ? "78vh" : "88vh",
-            background: "#F9FAFC",
+            minHeight: isMobile ? "80vh" : "90vh",
+            background: "transparent",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            width: "100vw",
-            padding: isMobile ? "0 2vw" : 0
+            width: "100%",
+            padding: "0 5vw",
+            boxSizing: "border-box",
+            position: "relative",
+            zIndex: 2,
         }}>
             <div style={{
-                fontWeight: 900,
-                fontSize: isMobile ? 31 : 44,
-                color: "#7B9ACC",
-                letterSpacing: -1.4,
-                minHeight: isMobile ? 40 : 65,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
                 textAlign: "center",
-                width: "100%"
+                width: "100%",
+                maxWidth: isMobile ? "90vw" : "800px",
+                margin: "0 auto",
             }}>
-                {animated}
-            </div>
-            <div style={{
-                margin: isMobile ? "22px 0 10px" : "40px 0 18px",
-                fontSize: isMobile ? 15 : 22,
-                color: "#232751",
-                opacity: .88,
-                textAlign: "center",
-                width: "100%"
-            }}>
-                Bachelor of Information Technology | Open for 2025&2026 Internship <br />
-                <span style={{
-                    fontSize: isMobile ? 13 : 17,
-                    opacity: .67
-                }}>Enterprise Software Development & Business Information System Management @UTS.</span>
-            </div>
-            <button
-                onClick={() => navigate("/contact")}
-                style={{
-                    marginTop: isMobile ? 16 : 28,
-                    background: "#7B9ACC",
-                    color: "#fff",
-                    fontWeight: 800,
-                    fontSize: isMobile ? 14 : 18,
-                    border: 0,
-                    borderRadius: 23,
-                    padding: isMobile ? "11px 22vw" : "15px 46px",
-                    boxShadow: "0 2px 18px #d2ddec33",
-                    cursor: "pointer"
+                <h1 style={{
+                    fontWeight: 900,
+                    fontSize: isMobile ? 32 : 48,
+                    color: "var(--accent)",
+                    letterSpacing: -1.5,
+                    lineHeight: 1.1,
+                    margin: "0 0 1.6rem 0",
+                    textShadow: theme === "dark" ? "0 4px 16px rgba(165,214,255,0.45)" : "0 4px 16px rgba(123,154,204,0.35)",
+                    width: "100%",
                 }}>
-                Contact Me
-            </button>
+                    {animated}
+                </h1>
+
+                <p style={{
+                    fontSize: isMobile ? 15 : 22,
+                    color: "var(--text-primary)", // hitam di light mode, putih di dark
+                    lineHeight: 1.6,
+                    margin: "0 0 2rem 0",
+                    width: "100%",
+                    opacity: 0.95,
+                }}>
+                    Bachelor of Information Technology | Open for 2025&2026 Internship
+                    <br />
+                    <span style={{
+                        fontSize: isMobile ? 13.5 : 18,
+                        opacity: 0.85,
+                        display: "block",
+                        marginTop: "0.8rem",
+                    }}>
+                        Enterprise Software Development & Business Information System Management @UTS.
+                    </span>
+                </p>
+
+                <button
+                    onClick={() => navigate("/contact")}
+                    style={{
+                        background: "var(--accent)",
+                        color: "#ffffff",
+                        fontWeight: 800,
+                        fontSize: isMobile ? 15 : 19,
+                        border: "none",
+                        borderRadius: 28,
+                        padding: isMobile ? "12px 32vw" : "16px 60px",
+                        boxShadow: theme === "dark" ? "0 4px 24px rgba(165,214,255,0.35)" : "0 4px 24px rgba(123,154,204,0.3)",
+                        cursor: "pointer",
+                        transition: "all 0.25s ease",
+                    }}
+                >
+                    Contact Me
+                </button>
+            </div>
+
             <FloatingSocialLinks isMobile={isMobile} />
         </div>
     );

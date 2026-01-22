@@ -1,13 +1,61 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* src/index.css - versi aman, partikel pasti muncul, scroll normal */
+
+:root {
+  --bg-primary: #f9fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #232751;
+  --text-secondary: #4b5563;
+  --accent: #7b9acc;
+  --accent-hover: #5f7db3;
+  --overlay: rgba(249, 250, 252, 0.35);
+  --shadow: rgba(123, 154, 204, 0.15);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.dark {
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --accent: #a5d6ff;
+  --accent-hover: #7ab9ff;
+  --overlay: rgba(13, 17, 23, 0.82);
+  --shadow: rgba(165, 214, 255, 0.18);
+}
+
+body {
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+  /* hanya cegah horizontal kalau ada bug layout */
+  /* JANGAN tambah overflow-y: hidden atau height: 100% di sini */
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Content wrapper – cukup padding-top, biar scroll normal */
+.page-content {
+  padding-top: 80px;
+  /* ruang navbar – coba sesuaikan 70px atau 90px kalau navbar lebih tinggi/rendah */
+  box-sizing: border-box;
+  /* TIDAK perlu min-height atau overflow-y: auto di sini */
+}
+
+/* Partikel – pastikan full screen */
+#tsparticles {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh !important;
+  /* pakai vh biar pasti full viewport */
+  z-index: -1;
+  pointer-events: none;
 }

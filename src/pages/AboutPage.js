@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTheme } from "../context/ThemeContext"; // pastikan path benar
 
 /* ────────────────────── DATA ────────────────────── */
 const LANG_SKILLS = [
@@ -110,6 +111,7 @@ function AnimatedBar({ label, value, color, delay = 0 }) {
 export default function AboutPage() {
     const [section, setSection] = useState("languages");
     const isMobile = useIsMobile();
+    const { theme } = useTheme();
 
     const dataMap = {
         languages: { list: LANG_SKILLS, colour: "#7B9ACC" },
@@ -125,14 +127,16 @@ export default function AboutPage() {
                 margin: isMobile ? "24px auto" : "70px auto",
                 padding: isMobile ? "0 4vw" : "0 20px",
                 fontFamily: "'Segoe UI', Arial, sans-serif",
-                color: "#232751",
+                color: "var(--text-primary)",
+                minHeight: "calc(100vh - 80px)", // biar ga ada double scroll
+                boxSizing: "border-box",
             }}
         >
             <h1
                 style={{
                     fontWeight: 900,
                     fontSize: isMobile ? 30 : 42,
-                    background: "linear-gradient(90deg,#7B9ACC,#5A7BC5)",
+                    background: "linear-gradient(90deg, var(--accent), var(--accent-hover))",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     marginBottom: isMobile ? 18 : 28,
@@ -146,9 +150,11 @@ export default function AboutPage() {
                 style={{
                     fontSize: isMobile ? 15.5 : 18,
                     lineHeight: isMobile ? 1.7 : 1.8,
-                    color: "#334466",
+                    color: theme === "dark" ? "#f1f5f9" : "#334466", // lebih putih/cerah di dark
                     textAlign: isMobile ? "justify" : "left",
                     margin: isMobile ? "18px 0 28px" : "32px 0 40px",
+                    textShadow: theme === "dark" ? "0 1px 4px rgba(0,0,0,0.6)" : "none", // shadow biar lebih visible di dark
+                    opacity: theme === "dark" ? 0.98 : 0.95,
                 }}
             >
                 Software Development student passionate about <strong>front-end</strong> — crafting clean, interactive UI with
@@ -173,22 +179,22 @@ export default function AboutPage() {
                         onClick={() => setSection(tab.key)}
                         style={{
                             flex: isMobile ? 1 : "none",
-                            background: section === tab.key ? "linear-gradient(135deg,#7B9ACC,#5A7BC5)" : "#F0F4FF",
-                            color: section === tab.key ? "#fff" : "#232751",
+                            background: section === tab.key ? "linear-gradient(135deg, var(--accent), var(--accent-hover))" : "var(--bg-secondary)",
+                            color: section === tab.key ? "#fff" : "var(--text-primary)",
                             fontWeight: 700,
                             fontSize: isMobile ? 15 : 17,
                             padding: isMobile ? "11px 20px" : "12px 32px",
                             border: "none",
                             borderRadius: 14,
-                            boxShadow: section === tab.key ? "0 4px 16px #7B9ACC44" : "0 1px 3px #00000012",
+                            boxShadow: section === tab.key ? "0 4px 16px var(--shadow)" : "0 1px 3px var(--shadow)",
                             transition: "all .22s ease",
                             cursor: "pointer",
                         }}
                         onMouseEnter={(e) => {
-                            if (section !== tab.key) e.currentTarget.style.background = "#E1E8F7";
+                            if (section !== tab.key) e.currentTarget.style.background = theme === "dark" ? "#2d3748" : "#E1E8F7";
                         }}
                         onMouseLeave={(e) => {
-                            if (section !== tab.key) e.currentTarget.style.background = "#F0F4FF";
+                            if (section !== tab.key) e.currentTarget.style.background = "var(--bg-secondary)";
                         }}
                     >
                         {tab.label}
@@ -222,7 +228,7 @@ export default function AboutPage() {
                     textAlign: "center",
                     marginTop: 32,
                     fontSize: 13,
-                    color: "#7788AA",
+                    color: "var(--text-secondary)",
                     fontStyle: "italic",
                 }}
             >
