@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 
+
 // Responsive device hook
 function useIsMobile(breakpoint = 600) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < breakpoint);
