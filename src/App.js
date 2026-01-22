@@ -10,6 +10,7 @@ import EventManagementCaseStudy from "./pages/EventManagementCaseStudy";
 import STQM from "./pages/STQM";
 import ParticlesBackground from "./components/ParticlesBackground";
 import { useTheme } from "./context/ThemeContext";
+import { Moon, Sun, Menu } from 'lucide-react';
 
 // Responsive device hook
 function useIsMobile(breakpoint = 600) {
@@ -35,9 +36,9 @@ function MobileNavMenu({ navs, location, open, setOpen }) {
         width: "75vw",
         maxWidth: 360,
         height: "100vh",
-        background: theme === "dark" ? "var(--bg-secondary)" : "var(--bg-secondary)",
-        color: "var(--text-primary)",
-        boxShadow: "-6px 0 30px var(--shadow)",
+        background: theme === "dark" ? "#0f172a" : "#ffffff",
+        color: theme === "dark" ? "#e2e8f0" : "#232751",
+        boxShadow: theme === "dark" ? "-6px 0 30px rgba(0,0,0,0.7)" : "-6px 0 30px rgba(0,0,0,0.15)",
         zIndex: 999,
         paddingTop: 70,
         paddingBottom: 30,
@@ -45,13 +46,14 @@ function MobileNavMenu({ navs, location, open, setOpen }) {
         flexDirection: "column",
         alignItems: "flex-end",
         overflowY: "auto",
+        transition: "all 0.3s ease",
       }}>
         <button
           onClick={() => setOpen(false)}
           style={{
             background: "none",
             border: "none",
-            color: "var(--accent)",
+            color: theme === "dark" ? "#a5d6ff" : "#7b9acc",
             fontSize: 36,
             fontWeight: 900,
             marginRight: 28,
@@ -70,14 +72,19 @@ function MobileNavMenu({ navs, location, open, setOpen }) {
             style={{
               width: "100%",
               textAlign: "right",
-              color: location.pathname === to ? "var(--accent)" : "var(--text-secondary)",
+              color: location.pathname === to
+                ? (theme === "dark" ? "#a5d6ff" : "#7b9acc")
+                : (theme === "dark" ? "#cbd5e1" : "#4b5563"),
               textDecoration: "none",
               padding: "18px 6vw",
               marginBottom: 6,
               fontWeight: location.pathname === to ? 900 : 700,
               fontSize: 17,
               opacity: location.pathname === to ? 1 : 0.92,
-              background: location.pathname === to ? "rgba(165,214,255,0.12)" : "transparent",
+              background: location.pathname === to
+                ? (theme === "dark" ? "rgba(165,214,255,0.12)" : "rgba(123,154,204,0.08)")
+                : "transparent",
+              transition: "all 0.2s ease",
             }}
           >
             {label}
@@ -88,7 +95,7 @@ function MobileNavMenu({ navs, location, open, setOpen }) {
   );
 }
 
-// Navbar – links di tengah, toggle di kiri
+// Navbar
 function Navbar() {
   const location = useLocation();
   const isMobile = useIsMobile();
@@ -108,10 +115,14 @@ function Navbar() {
       <nav
         style={{
           width: "100vw",
-          background: isMobile ? "var(--bg-primary)" : "rgba(13, 17, 23, 0.68)",
-          backdropFilter: isMobile ? "none" : "blur(14px)",
-          boxShadow: isMobile ? "none" : "0 6px 32px rgba(0,0,0,0.4)",
-          borderBottom: "1px solid rgba(48, 54, 61, 0.28)",
+          background: theme === "dark"
+            ? "rgba(13, 17, 23, 0.92)"
+            : "rgba(255, 255, 255, 0.92)",
+          backdropFilter: "blur(14px)",
+          boxShadow: theme === "dark"
+            ? "0 6px 32px rgba(0,0,0,0.6)"
+            : "0 6px 32px rgba(0,0,0,0.12)",
+          borderBottom: `1px solid ${theme === "dark" ? "rgba(48,54,61,0.45)" : "rgba(226,232,240,0.6)"}`,
           padding: isMobile ? "14px 1rem" : "16px 2rem",
           display: "flex",
           justifyContent: "center",
@@ -121,9 +132,10 @@ function Navbar() {
           left: 0,
           zIndex: 1000,
           gap: isMobile ? 0 : "3.5rem",
+          transition: "all 0.3s ease",
         }}
       >
-        {/* Toggle button */}
+        {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
           aria-label="Toggle theme"
@@ -135,31 +147,19 @@ function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "var(--text-primary)",
-            transition: "transform 0.3s ease, color 0.3s ease",
+            color: theme === "dark" ? "#a5d6ff" : "#7b9acc",
+            transition: "transform 0.3s ease",
             position: "absolute",
             left: isMobile ? "16px" : "32px",
             fontSize: "1.4rem",
           }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.2)"}
+          onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.15)"}
           onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
         >
           {theme === "dark" ? (
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <circle cx="12" cy="12" r="5" />
-              <line x1="12" y1="1" x2="12" y2="3" />
-              <line x1="12" y1="21" x2="12" y2="23" />
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-              <line x1="1" y1="12" x2="3" y2="12" />
-              <line x1="21" y1="12" x2="23" y2="12" />
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-            </svg>
+            <Sun size={28} />
           ) : (
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
+            <Moon size={28} />
           )}
         </button>
 
@@ -171,11 +171,13 @@ function Navbar() {
                 key={to}
                 to={to}
                 style={{
-                  color: location.pathname === to ? "var(--accent)" : "var(--text-primary)",
+                  color: location.pathname === to
+                    ? (theme === "dark" ? "#a5d6ff" : "#7b9acc")
+                    : (theme === "dark" ? "#e2e8f0" : "#232751"),
                   textDecoration: "none",
                   fontWeight: location.pathname === to ? 900 : 700,
                   fontSize: 18,
-                  transition: "color 0.22s ease, transform 0.22s ease",
+                  transition: "all 0.22s ease",
                   transform: location.pathname === to ? "scale(1.08)" : "scale(1)",
                 }}
               >
@@ -194,7 +196,7 @@ function Navbar() {
               border: "none",
               fontSize: 34,
               fontWeight: 900,
-              color: "var(--accent)",
+              color: theme === "dark" ? "#a5d6ff" : "#7b9acc",
               cursor: "pointer",
               padding: 0,
               lineHeight: 1,
@@ -202,17 +204,22 @@ function Navbar() {
               right: "16px",
             }}
           >
-            ☰
+            <Menu size={34} />
           </button>
         )}
       </nav>
 
-      <MobileNavMenu navs={navs} location={location} open={isMobile && showMenu} setOpen={setShowMenu} />
+      <MobileNavMenu
+        navs={navs}
+        location={location}
+        open={isMobile && showMenu}
+        setOpen={setShowMenu}
+      />
     </>
   );
 }
 
-// Main App – versi minimal & aman
+// Main App
 export default function App() {
   return (
     <Router>
@@ -221,11 +228,13 @@ export default function App() {
       <Navbar />
 
       <div
-        className="page-content"  // ← ini wajib untuk padding-top dari CSS
+        className="page-content"
         style={{
           position: "relative",
           zIndex: 1,
-          background: "var(--overlay)",
+          minHeight: "100vh",
+          background: "transparent", // biar body yang handle background via --bg-primary
+          paddingTop: "90px", // ruang untuk navbar fixed
         }}
       >
         <Routes>

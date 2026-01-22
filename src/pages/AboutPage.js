@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useTheme } from "../context/ThemeContext"; // pastikan path benar
+import { useTheme } from "../context/ThemeContext";
 
 /* ────────────────────── DATA ────────────────────── */
 const LANG_SKILLS = [
@@ -124,23 +124,25 @@ export default function AboutPage() {
         <section
             style={{
                 maxWidth: isMobile ? "97vw" : 780,
-                margin: isMobile ? "24px auto" : "70px auto",
-                padding: isMobile ? "0 4vw" : "0 20px",
+                margin: isMobile ? "40px auto" : "80px auto",
+                padding: isMobile ? "0 5vw" : "0 20px",
                 fontFamily: "'Segoe UI', Arial, sans-serif",
                 color: "var(--text-primary)",
-                minHeight: "calc(100vh - 80px)", // biar ga ada double scroll
+                minHeight: "calc(100vh - 80px)",
                 boxSizing: "border-box",
             }}
         >
             <h1
                 style={{
                     fontWeight: 900,
-                    fontSize: isMobile ? 30 : 42,
+                    fontSize: isMobile ? 32 : 44,
                     background: "linear-gradient(90deg, var(--accent), var(--accent-hover))",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
-                    marginBottom: isMobile ? 18 : 28,
+                    marginBottom: isMobile ? 24 : 36,
                     textAlign: isMobile ? "center" : "left",
+                    textShadow: theme === "dark" ? "0 2px 12px rgba(165,214,255,0.35)" : "none",
+                    letterSpacing: "-0.5px",
                 }}
             >
                 About Me
@@ -148,12 +150,13 @@ export default function AboutPage() {
 
             <p
                 style={{
-                    fontSize: isMobile ? 15.5 : 18,
-                    lineHeight: isMobile ? 1.7 : 1.8,
-                    color: theme === "dark" ? "#f1f5f9" : "#334466", // lebih putih/cerah di dark
+                    fontSize: isMobile ? 16 : 18,
+                    lineHeight: 1.7,
+                    fontWeight: 400,
+                    color: "var(--text-primary)",
                     textAlign: isMobile ? "justify" : "left",
-                    margin: isMobile ? "18px 0 28px" : "32px 0 40px",
-                    textShadow: theme === "dark" ? "0 1px 4px rgba(0,0,0,0.6)" : "none", // shadow biar lebih visible di dark
+                    margin: isMobile ? "20px 0 32px" : "32px 0 44px",
+                    textShadow: theme === "dark" ? "0 1px 6px rgba(0,0,0,0.7)" : "none",
                     opacity: theme === "dark" ? 0.98 : 0.95,
                 }}
             >
@@ -164,13 +167,14 @@ export default function AboutPage() {
                 Also exploring <strong>React Native</strong>, QA, and business analysis.
             </p>
 
+            {/* Tabs & AnimatedBar tetap sama */}
             <div
                 style={{
                     display: "flex",
                     flexDirection: isMobile ? "column" : "row",
                     justifyContent: "center",
                     gap: isMobile ? 12 : 20,
-                    margin: isMobile ? "24px 0" : "44px 0",
+                    margin: isMobile ? "28px 0" : "48px 0",
                 }}
             >
                 {SECTION_TABS.map((tab) => (

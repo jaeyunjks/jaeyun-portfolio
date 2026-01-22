@@ -12,20 +12,30 @@ const lightTheme = {
     bg: '#F8FBFF',
     surface: '#FFFFFF',
     text: '#1A365D',
+    mutedText: '#4B5563',
+    border: '#E2E8F0',
     success: '#10B981',
     danger: '#EF4444',
     warning: '#F59E0B',
+    codeBg: '#f6f8fa',
+    codeBorder: '#d0d7de',
+    shadow: 'rgba(0,0,0,0.08)',
 };
 
 const darkTheme = {
     primary: '#60A5FA',
-    light: '#1E40AF',
+    light: '#3B82F6',
     bg: '#0F172A',
     surface: '#1E293B',
     text: '#F1F5F9',
+    mutedText: '#94A3B8',
+    border: '#334155',
     success: '#34D399',
     danger: '#F87171',
     warning: '#FBBF24',
+    codeBg: '#0D1117',
+    codeBorder: '#30363D',
+    shadow: 'rgba(0,0,0,0.4)',
 };
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
@@ -36,7 +46,6 @@ export default function STQMFullShowcase() {
     const componentRef = useRef();
     const theme = isDark ? darkTheme : lightTheme;
 
-    // SCROLL TO TOP ON PAGE LOAD
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -50,57 +59,126 @@ export default function STQMFullShowcase() {
         <div ref={componentRef} style={{
             minHeight: '100vh',
             background: theme.bg,
-            fontFamily: "'Inter', sans-serif",
             color: theme.text,
             transition: 'all 0.3s ease',
         }}>
             {/* Header */}
-            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: theme.surface, padding: '12px 20px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{
+                position: 'fixed',
+                top: 0, left: 0, right: 0,
+                zIndex: 50,
+                background: theme.surface,
+                padding: '12px 20px',
+                boxShadow: `0 4px 20px ${theme.shadow}`,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                borderBottom: `1px solid ${theme.border}`,
+            }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <Lock size={18} color={theme.primary} />
                     <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Confidential UTS Assignment</span>
                 </div>
                 <div style={{ display: 'flex', gap: '10px' }}>
-                    <button onClick={() => setIsDark(!isDark)} style={iconBtn}>
-                        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                    <button
+                        onClick={() => setIsDark(!isDark)}
+                        style={{
+                            background: 'transparent',
+                            border: 'none',
+                            cursor: 'pointer',
+                            padding: '8px',
+                            borderRadius: '8px',
+                            transition: 'background 0.2s',
+                        }}
+                    >
+                        {isDark ? <Sun size={20} color={theme.text} /> : <Moon size={20} color={theme.text} />}
                     </button>
-                    <button onClick={handlePrint} style={iconBtn}>
-                        <Download size={20} />
+                    <button onClick={handlePrint} style={{
+                        background: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '8px',
+                        borderRadius: '8px',
+                    }}>
+                        <Download size={20} color={theme.text} />
                     </button>
                 </div>
             </div>
 
             {/* Hero */}
-            <section style={{ padding: '100px 20px 80px', textAlign: 'center', background: `linear-gradient(135deg, ${theme.light} 0%, ${theme.primary} 100%)`, color: 'white' }}>
-                <motion.h1 initial={{ opacity: 0, y: -30 }} animate={{ opacity: 1, y: 0 }} style={{ fontSize: '3rem', fontWeight: 800, margin: 0 }}>
+            <section style={{
+                padding: '100px 20px 80px',
+                textAlign: 'center',
+                background: `linear-gradient(135deg, ${theme.light}33, ${theme.primary}66)`,
+                color: isDark ? theme.text : 'white',
+            }}>
+                <motion.h1
+                    initial={{ opacity: 0, y: -30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{
+                        fontSize: '3rem',
+                        fontWeight: 800,
+                        margin: 0,
+                        color: isDark ? theme.primary : 'white',
+                    }}
+                >
                     Systems Testing & Quality Management
                 </motion.h1>
-                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} style={{ fontSize: '1.3rem', margin: '16px 0 32px', maxWidth: '800px', marginLeft: 'auto', marginRight: 'auto' }}>
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    style={{
+                        fontSize: '1.3rem',
+                        margin: '16px 0 32px',
+                        maxWidth: '800px',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        color: isDark ? theme.mutedText : 'rgba(255,255,255,0.9)',
+                    }}
+                >
                     3 Projects: Static Review (40 issues), Black/White-Box (37 cases), E2E Automation (88% pass)
                 </motion.p>
-                <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={{ delay: 0.4 }} style={{ display: 'flex', justifyContent: 'center', gap: '30px', flexWrap: 'wrap' }}>
-                    <ImpactCard icon={<Shield />} value="40" label="Issues Found" />
-                    <ImpactCard icon={<Zap />} value="85%" label="Coverage" />
-                    <ImpactCard icon={<CheckCircle />} value="88%" label="Pass Rate" />
+                <motion.div
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.4 }}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '30px',
+                        flexWrap: 'wrap',
+                    }}
+                >
+                    <ImpactCard icon={<Shield />} value="40" label="Issues Found" theme={theme} isDark={isDark} />
+                    <ImpactCard icon={<Zap />} value="85%" label="Coverage" theme={theme} isDark={isDark} />
+                    <ImpactCard icon={<CheckCircle />} value="88%" label="Pass Rate" theme={theme} isDark={isDark} />
                 </motion.div>
             </section>
 
             {/* Navigation */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', padding: '30px 20px', flexWrap: 'wrap' }}>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '12px',
+                padding: '30px 20px',
+                flexWrap: 'wrap',
+                background: theme.surface,
+            }}>
                 {['overview', 'project1', 'project2', 'project3', 'impact'].map((tab) => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
                         style={{
                             padding: '12px 28px',
-                            border: 'none',
                             borderRadius: '50px',
                             background: activeTab === tab ? theme.primary : theme.surface,
                             color: activeTab === tab ? 'white' : theme.text,
                             fontWeight: 600,
                             cursor: 'pointer',
-                            boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
-                            transition: '0.3s',
+                            boxShadow: `0 4px 15px ${theme.shadow}`,
+                            transition: 'all 0.3s ease',
+                            border: `1px solid ${activeTab === tab ? 'transparent' : theme.border}`,
                         }}
                     >
                         {tab === 'project1' ? 'Project 1: Static + FMEA' : tab === 'project2' ? 'Project 2: B/W-Box' : tab === 'project3' ? 'Project 3: System Test' : tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -108,17 +186,30 @@ export default function STQMFullShowcase() {
                 ))}
             </div>
 
-            {/* Content */}
-            <div style={{ maxWidth: '1100px', margin: '0 auto 80px', padding: '0 20px' }}>
-                {activeTab === 'overview' && <Overview theme={theme} />}
-                {activeTab === 'project1' && <Project1 theme={theme} />}
-                {activeTab === 'project2' && <Project2 theme={theme} />}
-                {activeTab === 'project3' && <Project3 theme={theme} />}
-                {activeTab === 'impact' && <Impact theme={theme} />}
+            {/* Main Content */}
+            <div style={{
+                maxWidth: '1100px',
+                margin: '0 auto 80px',
+                padding: '0 20px',
+            }}>
+                {activeTab === 'overview' && <Overview theme={theme} isDark={isDark} />}
+                {activeTab === 'project1' && <Project1 theme={theme} isDark={isDark} />}
+                {activeTab === 'project2' && <Project2 theme={theme} isDark={isDark} />}
+                {activeTab === 'project3' && <Project3 theme={theme} isDark={isDark} />}
+                {activeTab === 'impact' && <Impact theme={theme} isDark={isDark} />}
             </div>
 
             {/* Footer */}
-            <motion.footer initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ background: theme.primary, color: 'white', textAlign: 'center', padding: '40px 20px' }}>
+            <motion.footer
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                style={{
+                    background: theme.primary,
+                    color: 'white',
+                    textAlign: 'center',
+                    padding: '40px 20px',
+                }}
+            >
                 <h3 style={{ margin: '0 0 16px', fontSize: '1.5rem' }}>Quality is Non-Negotiable</h3>
                 <p style={{ margin: '0 0 24px', opacity: 0.9 }}>From requirements to production — I prevent bugs.</p>
             </motion.footer>
@@ -126,8 +217,22 @@ export default function STQMFullShowcase() {
     );
 }
 
-// === PROJECT 1: FULL 20 DEFECTS + 20 FMEA ===
-function Project1({ theme }) {
+// === Overview ===
+function Overview({ theme, isDark }) {
+    return (
+        <motion.div variants={fadeIn} initial="hidden" animate="visible" style={sectionStyle(theme, isDark)}>
+            <h2 style={titleStyle(theme)}>Full Testing Lifecycle</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginTop: '30px' }}>
+                <FeatureCard icon={<FileText />} title="Project 1" desc="Static + FMEA: 40 issues" theme={theme} isDark={isDark} />
+                <FeatureCard icon={<Code />} title="Project 2" desc="B/W-Box: 37 cases" theme={theme} isDark={isDark} />
+                <FeatureCard icon={<Globe />} title="Project 3" desc="E2E: 88% pass" theme={theme} isDark={isDark} />
+            </div>
+        </motion.div>
+    );
+}
+
+// === Project 1 ===
+function Project1({ theme, isDark }) {
     const defects = [
         { id: 'ST001', domain: 'Security', issue: 'Password complexity rules undefined', source: '15a', tags: ['Incomplete', 'Ambiguous'] },
         { id: 'ST002', domain: 'Functionality', issue: 'Prerequisite override process unclear', source: 'Req #12F, p.14', tags: ['Incomplete'] },
@@ -175,29 +280,37 @@ function Project1({ theme }) {
     ];
 
     return (
-        <motion.div variants={fadeIn} initial="hidden" animate="visible" style={sectionStyle(theme)}>
+        <motion.div variants={fadeIn} initial="hidden" animate="visible" style={sectionStyle(theme, isDark)}>
             <h2 style={titleStyle(theme)}>Project 1: Static Testing & FMEA</h2>
-            <p style={{ margin: '20px 0', fontSize: '1.1rem' }}>
+            <p style={{ margin: '20px 0', fontSize: '1.1rem', color: theme.text }}>
                 Reviewed <strong>University Online Registration Requirements Specification (23 pages, UTS Assignment)</strong> → Found <strong>20 defects + 20 risks</strong>.
             </p>
 
-            {/* Tables */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginTop: '30px' }}>
                 <div>
-                    <h3>20 Defects (Traceable)</h3>
-                    <div style={{ maxHeight: '500px', overflowY: 'auto', border: '1px solid #E2E8F0', borderRadius: '12px' }}>
+                    <h3 style={{ color: theme.primary, marginBottom: '12px' }}>20 Defects (Traceable)</h3>
+                    <div style={{
+                        maxHeight: '500px',
+                        overflowY: 'auto',
+                        border: `1px solid ${theme.border}`,
+                        borderRadius: '12px',
+                        background: theme.surface,
+                    }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                             <thead>
                                 <tr style={{ background: theme.primary, color: 'white' }}>
-                                    <th style={th}>ID</th><th style={th}>Domain</th><th style={th}>Issue</th><th style={th}>Source</th>
+                                    <th style={th}>ID</th>
+                                    <th style={th}>Domain</th>
+                                    <th style={th}>Issue</th>
+                                    <th style={th}>Source</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {defects.map(d => (
-                                    <tr key={d.id}>
+                                    <tr key={d.id} style={{ borderBottom: `1px solid ${theme.border}` }}>
                                         <td style={td}><strong>{d.id}</strong></td>
                                         <td style={td}><Badge text={d.domain} color={theme.primary} /></td>
-                                        <td style={td}>{d.issue}</td> {/* ← FIXED: {d.issue} */}
+                                        <td style={td}>{d.issue}</td>
                                         <td style={td}><em>{d.source}</em></td>
                                     </tr>
                                 ))}
@@ -207,17 +320,26 @@ function Project1({ theme }) {
                 </div>
 
                 <div>
-                    <h3>FMEA – Top Risks</h3>
-                    <div style={{ maxHeight: '500px', overflowY: 'auto', border: '1px solid #E2E8F0', borderRadius: '12px' }}>
+                    <h3 style={{ color: theme.primary, marginBottom: '12px' }}>FMEA – Top Risks</h3>
+                    <div style={{
+                        maxHeight: '500px',
+                        overflowY: 'auto',
+                        border: `1px solid ${theme.border}`,
+                        borderRadius: '12px',
+                        background: theme.surface,
+                    }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                             <thead>
                                 <tr style={{ background: theme.danger, color: 'white' }}>
-                                    <th style={th}>ID</th><th style={th}>Failure</th><th style={th}>RPN</th><th style={th}>Action</th>
+                                    <th style={th}>ID</th>
+                                    <th style={th}>Failure</th>
+                                    <th style={th}>RPN</th>
+                                    <th style={th}>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {risks.sort((a, b) => b.rpn - a.rpn).map(r => (
-                                    <tr key={r.id}>
+                                    <tr key={r.id} style={{ borderBottom: `1px solid ${theme.border}` }}>
                                         <td style={td}><strong>{r.id}</strong></td>
                                         <td style={td}>{r.fail}</td>
                                         <td style={td}><Badge text={r.rpn} color={r.rpn > 15 ? theme.danger : r.rpn > 10 ? theme.warning : theme.success} /></td>
@@ -230,16 +352,21 @@ function Project1({ theme }) {
                 </div>
             </div>
 
-            {/* Key Findings */}
-            <div style={{ marginTop: '30px', padding: '20px', background: theme.warning + '20', borderRadius: '12px', border: `1px solid ${theme.warning}` }}>
-                <h4 style={{ margin: '0 0 12px', color: '#92400E' }}>Key Findings</h4>
+            <div style={{
+                marginTop: '30px',
+                padding: '20px',
+                background: `${theme.warning}20`,
+                borderRadius: '12px',
+                border: `1px solid ${theme.warning}40`,
+            }}>
+                <h4 style={{ margin: '0 0 12px', color: theme.warning }}>Key Findings</h4>
                 <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '0.95rem', lineHeight: 1.6 }}>
                     <li><strong>20 defects</strong> — 60% ambiguous, 50% incomplete</li>
                     <li><strong>ST013</strong>: Advisor approval conflict — <em>business-critical</em></li>
                     <li><strong>Security gaps</strong>: No password rules, no encryption</li>
                     <li><strong>FMEA Top Risk</strong>: RS018 (RPN 20) — localisation exclusion</li>
                 </ul>
-                <p style={{ margin: '12px 0 0', fontSize: '0.85rem', color: '#92400E', fontStyle: 'italic' }}>
+                <p style={{ margin: '12px 0 0', fontSize: '0.85rem', color: theme.mutedText, fontStyle: 'italic' }}>
                     Source: <strong>University Online Registration Requirements Specification</strong> (23 pages, UTS Assignment)
                 </p>
                 <a
@@ -264,27 +391,27 @@ function Project1({ theme }) {
     );
 }
 
+// === Project 2 ===
 function Project2({ theme, isDark }) {
     return (
-        <motion.div variants={fadeIn} initial="hidden" animate="visible" style={sectionStyle(theme)}>
+        <motion.div variants={fadeIn} initial="hidden" animate="visible" style={sectionStyle(theme, isDark)}>
             <h2 style={titleStyle(theme)}>Project 2: Unit Testing (Black & White Box)</h2>
-            <p style={{ margin: '20px 0', fontSize: '1.1rem' }}>
+            <p style={{ margin: '20px 0', fontSize: '1.1rem', color: theme.text }}>
                 Designed <strong>37 test cases</strong> for <code>binarySearch(int[] arr, int x)</code> — an <strong>iterative binary search</strong> in C++ with <code>O(log n)</code> complexity.
             </p>
 
-            {/* Summary Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', margin: '24px 0' }}>
-                <div style={{ background: theme.primary + '15', padding: '16px', borderRadius: '12px', textAlign: 'center', border: `1px solid ${theme.primary}` }}>
+                <div style={{ background: `${theme.primary}15`, padding: '16px', borderRadius: '12px', textAlign: 'center', border: `1px solid ${theme.primary}40` }}>
                     <div style={{ fontSize: '2rem', fontWeight: 800, color: theme.primary }}>100%</div>
-                    <div style={{ fontSize: '0.9rem', color: theme.text }}>Statement Coverage</div>
+                    <div style={{ fontSize: '0.9rem', color: theme.mutedText }}>Statement Coverage</div>
                 </div>
-                <div style={{ background: theme.success + '15', padding: '16px', borderRadius: '12px', textAlign: 'center', border: `1px solid ${theme.success}` }}>
+                <div style={{ background: `${theme.success}15`, padding: '16px', borderRadius: '12px', textAlign: 'center', border: `1px solid ${theme.success}40` }}>
                     <div style={{ fontSize: '2rem', fontWeight: 800, color: theme.success }}>All Paths</div>
-                    <div style={{ fontSize: '0.9rem', color: theme.text }}>Path Coverage</div>
+                    <div style={{ fontSize: '0.9rem', color: theme.mutedText }}>Path Coverage</div>
                 </div>
-                <div style={{ background: theme.warning + '15', padding: '16px', borderRadius: '12px', textAlign: 'center', border: `1px solid ${theme.warning}` }}>
+                <div style={{ background: `${theme.warning}15`, padding: '16px', borderRadius: '12px', textAlign: 'center', border: `1px solid ${theme.warning}40` }}>
                     <div style={{ fontSize: '2rem', fontWeight: 800, color: theme.warning }}>8</div>
-                    <div style={{ fontSize: '0.9rem', color: theme.text }}>Equivalence Classes</div>
+                    <div style={{ fontSize: '0.9rem', color: theme.mutedText }}>Equivalence Classes</div>
                 </div>
             </div>
 
@@ -304,10 +431,9 @@ function Project2({ theme, isDark }) {
                 </div>
             </div>
 
-            {/* Sample Test Cases */}
             <div style={{ marginTop: '32px' }}>
                 <h4 style={{ color: theme.text, fontWeight: 600, marginBottom: '12px' }}>Sample Test Cases</h4>
-                <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+                <div style={{ overflowX: 'auto', borderRadius: '12px', border: `1px solid ${theme.border}` }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                         <thead>
                             <tr style={{ background: theme.primary, color: 'white' }}>
@@ -328,27 +454,25 @@ function Project2({ theme, isDark }) {
                 </div>
             </div>
 
-            {/* Source Code — WARNA SESUAI DARK MODE */}
             <div style={{ marginTop: '32px' }}>
                 <h4 style={{ color: theme.text, fontWeight: 600, marginBottom: '16px' }}>
                     Source Code (C++ – Annotated)
                 </h4>
 
                 <div style={{
-                    background: isDark ? '#0d1117' : '#f6f8fa',
+                    background: isDark ? darkTheme.codeBg : lightTheme.codeBg,
                     borderRadius: '16px',
                     overflow: 'hidden',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+                    boxShadow: `0 8px 32px ${theme.shadow}`,
                     fontFamily: 'Consolas, "Courier New", monospace',
-                    border: `1px solid ${isDark ? '#30363d' : '#d0d7de'}`
+                    border: `1px solid ${isDark ? darkTheme.codeBorder : lightTheme.codeBorder}`
                 }}>
-                    {/* Header */}
                     <div style={{
                         background: isDark ? '#161b22' : '#ffffff',
                         padding: '8px 16px',
                         fontSize: '0.8rem',
                         color: isDark ? '#8b949e' : '#57606a',
-                        borderBottom: `1px solid ${isDark ? '#30363d' : '#d0d7de'}`,
+                        borderBottom: `1px solid ${isDark ? darkTheme.codeBorder : lightTheme.codeBorder}`,
                         display: 'flex',
                         alignItems: 'center',
                         gap: '8px'
@@ -359,16 +483,15 @@ function Project2({ theme, isDark }) {
                         <span style={{ marginLeft: '8px', fontWeight: 500 }}>binarySearch.cpp</span>
                     </div>
 
-                    {/* Code + Line Numbers */}
                     <div style={{ display: 'flex' }}>
                         <div style={{
-                            background: isDark ? '#0d1117' : '#f6f8fa',
+                            background: isDark ? darkTheme.codeBg : lightTheme.codeBg,
                             padding: '20px 8px 20px 16px',
                             color: isDark ? '#6e7681' : '#57606a',
                             fontSize: '0.85rem',
                             textAlign: 'right',
                             userSelect: 'none',
-                            borderRight: `1px solid ${isDark ? '#30363d' : '#d0d7de'}`,
+                            borderRight: `1px solid ${isDark ? darkTheme.codeBorder : lightTheme.codeBorder}`,
                             minWidth: '50px'
                         }}>
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map(n => (
@@ -376,12 +499,11 @@ function Project2({ theme, isDark }) {
                             ))}
                         </div>
 
-                        {/* Code */}
-                        <div style={{ padding: '20px', flex: 1, fontSize: '0.9rem', lineHeight: '1.6em', color: isDark ? '#f0f6fc' : '#24292f' }}>
+                        <div style={{ padding: '20px', flex: 1, fontSize: '0.9rem', lineHeight: '1.6em', color: isDark ? '#c9d1d9' : '#24292f' }}>
                             <div>
                                 <span style={{ color: isDark ? '#79c0ff' : '#0550ae' }}>int</span>{' '}
                                 <span style={{ color: isDark ? '#d2a8ff' : '#8250df' }}>binarySearch</span>
-                                <span style={{ color: isDark ? '#79c0ff' : '#0550ae' }}>(int arr[], int x)</span> &#123;
+                                <span style={{ color: isDark ? '#79c0ff' : '#0550ae' }}>(int arr[], int x)</span> {'{'}
                             </div>
                             <div style={{ marginLeft: '1.5em' }}>
                                 {'  '}<span style={{ color: isDark ? '#79c0ff' : '#0550ae' }}>int</span> low = <span style={{ color: isDark ? '#79c0ff' : '#0a3069' }}>0</span>;
@@ -392,7 +514,7 @@ function Project2({ theme, isDark }) {
                                 {' '}<span style={{ color: isDark ? '#8b949e' : '#6e7781' }}>{'// Boundary'}</span>
                             </div>
                             <div style={{ marginLeft: '1.5em' }}>
-                                {'  '}<span style={{ color: isDark ? '#ff7b72' : '#cf222e' }}>while</span> (low &lt;= high) &#123;
+                                {'  '}<span style={{ color: isDark ? '#ff7b72' : '#cf222e' }}>while</span> (low &lt;= high) {'{'}
                                 {' '}<span style={{ color: isDark ? '#7ee787' : '#116329' }}>{'// Loop coverage'}</span>
                             </div>
                             <div style={{ marginLeft: '3em' }}>
@@ -420,37 +542,35 @@ function Project2({ theme, isDark }) {
                                 {'      '}high = mid - <span style={{ color: isDark ? '#79c0ff' : '#0a3069' }}>1</span>;
                                 {' '}<span style={{ color: isDark ? '#79c0ff' : '#0550ae' }}>{'// Search left'}</span>
                             </div>
-                            <div style={{ marginLeft: '1.5em' }}>{'  &#125;'}</div>
+                            <div style={{ marginLeft: '1.5em' }}>{'  }'}</div>
                             <div style={{ marginLeft: '1.5em' }}>
                                 {'  '}<span style={{ color: isDark ? '#ff7b72' : '#cf222e' }}>return</span> <span style={{ color: isDark ? '#f85149' : '#a40e26' }}>-1</span>;
                                 {' '}<span style={{ color: isDark ? '#f85149' : '#a40e26' }}>{'// Not found → P0'}</span>
                             </div>
-                            <div>&#125;</div>
+                            <div>{'}'}</div>
                         </div>
                     </div>
 
-                    {/* Legend */}
                     <div style={{
                         background: isDark ? '#161b22' : '#ffffff',
                         padding: '10px 20px',
                         fontSize: '0.75rem',
                         color: isDark ? '#8b949e' : '#57606a',
-                        borderTop: `1px solid ${isDark ? '#30363d' : '#d0d7de'}`,
+                        borderTop: `1px solid ${isDark ? darkTheme.codeBorder : lightTheme.codeBorder}`,
                         display: 'flex',
                         gap: '16px',
                         flexWrap: 'wrap'
                     }}>
                         <span style={{ color: isDark ? '#7ee787' : '#116329' }}>Loop</span>
-                        <span style={{ color: isDark ? '#79c0ff' : '#0550ae' }}> Path P1a</span>
-                        <span style={{ color: isDark ? '#f85149' : '#a40e26' }}> Path P0</span>
+                        <span style={{ color: isDark ? '#79c0ff' : '#0550ae' }}>Path P1a</span>
+                        <span style={{ color: isDark ? '#f85149' : '#a40e26' }}>Path P0</span>
                         <span style={{ color: isDark ? '#8b949e' : '#6e7781' }}>Comments</span>
                     </div>
 
-                    {/* Key Insight */}
                     <div style={{
                         marginTop: '20px',
                         padding: '16px 20px',
-                        background: theme.success + '15',
+                        background: `${theme.success}15`,
                         border: `1px solid ${theme.success}`,
                         borderRadius: '12px',
                         fontSize: '0.95rem'
@@ -463,6 +583,8 @@ function Project2({ theme, isDark }) {
         </motion.div>
     );
 }
+
+// === Project 3 ===
 function Project3({ theme, isDark }) {
     const testResults = [
         { id: 'T001', func: 'Search Product', result: 'PASS', tool: 'Selenium (Python)', tester: 'Me' },
@@ -478,7 +600,6 @@ function Project3({ theme, isDark }) {
 
     const passRate = ((testResults.filter(t => t.result === 'PASS').length / testResults.length) * 100).toFixed(2);
 
-    // Apple-style scroll animation variants
     const sectionVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -512,23 +633,20 @@ function Project3({ theme, isDark }) {
             whileInView="visible"
             viewport={{ once: true, margin: "-120px" }}
             variants={sectionVariants}
-            style={sectionStyle(theme)}
+            style={sectionStyle(theme, isDark)}
         >
-            {/* === BANNER === */}
-            <motion.div
-                variants={childVariants}
-                style={{
-                    background: `linear-gradient(135deg, ${theme.primary}12, ${theme.light}08)`,
-                    padding: '28px 36px',
-                    borderRadius: '24px',
-                    border: `1px solid ${theme.primary}25`,
-                    textAlign: 'center',
-                    marginBottom: '60px',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    boxShadow: '0 12px 40px rgba(0,0,0,0.08)'
-                }}
-            >
+            {/* Banner */}
+            <motion.div variants={childVariants} style={{
+                background: `linear-gradient(135deg, ${theme.primary}12, ${theme.light}08)`,
+                padding: '28px 36px',
+                borderRadius: '24px',
+                border: `1px solid ${theme.primary}25`,
+                textAlign: 'center',
+                marginBottom: '60px',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                boxShadow: `0 12px 40px ${theme.shadow}`
+            }}>
                 <h3 style={{ margin: 0, color: theme.primary, fontWeight: 700, fontSize: '1.8rem', letterSpacing: '-0.6px' }}>
                     Group Project • 3 Members • 88.89% Pass Rate
                 </h3>
@@ -537,7 +655,7 @@ function Project3({ theme, isDark }) {
                 </p>
             </motion.div>
 
-            {/* === 1. OVERVIEW + ANIMATED BUTTON === */}
+            {/* Overview */}
             <motion.div variants={childVariants} style={{ marginBottom: '64px' }}>
                 <h3 style={{ color: theme.primary, fontWeight: 700, marginBottom: '22px', fontSize: '1.6rem', letterSpacing: '-0.4px' }}>
                     1. Overview
@@ -546,7 +664,6 @@ function Project3({ theme, isDark }) {
                     Automated testing of a live e-commerce platform using <strong>Selenium</strong> and <strong>TestCafe</strong> to validate user flows.
                 </p>
 
-                {/* APPLE-STYLE BUTTON WITH ARROW PULSE */}
                 <motion.a
                     href="https://ecommerce-playground.lambdatest.io"
                     target="_blank"
@@ -565,7 +682,7 @@ function Project3({ theme, isDark }) {
                         fontWeight: 600,
                         fontSize: '1.05rem',
                         textDecoration: 'none',
-                        boxShadow: '0 10px 30px rgba(0,0,0,0.18)',
+                        boxShadow: `0 10px 30px ${theme.shadow}`,
                         letterSpacing: '-0.2px'
                     }}
                 >
@@ -579,12 +696,12 @@ function Project3({ theme, isDark }) {
                 </motion.a>
             </motion.div>
 
-            {/* === 2. FUNCTIONS === */}
+            {/* Functions Tested */}
             <motion.div variants={childVariants} style={{ marginBottom: '64px' }}>
                 <h3 style={{ color: theme.primary, fontWeight: 700, marginBottom: '24px', fontSize: '1.6rem' }}>
                     2. Functions Tested (9)
                 </h3>
-                <div style={{ overflowX: 'auto', borderRadius: '20px', border: `1px solid ${theme.primary}25`, background: theme.surface, boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}>
+                <div style={{ overflowX: 'auto', borderRadius: '20px', border: `1px solid ${theme.primary}25`, background: theme.surface, boxShadow: `0 8px 30px ${theme.shadow}` }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.98rem' }}>
                         <thead>
                             <tr style={{ background: theme.primary, color: 'white' }}>
@@ -616,7 +733,7 @@ function Project3({ theme, isDark }) {
                                 >
                                     <td style={{ ...td, padding: '16px' }}><code style={{ fontWeight: 600, fontSize: '0.9rem' }}>{id}</code></td>
                                     <td style={{ ...td, padding: '16px' }}><strong>{name}</strong></td>
-                                    <td style={{ ...td, padding: '16px', color: theme.text + 'e0' }}>{desc}</td>
+                                    <td style={{ ...td, padding: '16px', color: theme.mutedText }}>{desc}</td>
                                 </motion.tr>
                             ))}
                         </tbody>
@@ -624,7 +741,7 @@ function Project3({ theme, isDark }) {
                 </div>
             </motion.div>
 
-            {/* === 3. MY ROLE === */}
+            {/* My Role */}
             <motion.div
                 variants={childVariants}
                 style={{
@@ -633,7 +750,7 @@ function Project3({ theme, isDark }) {
                     background: `linear-gradient(145deg, ${theme.surface}, ${theme.surface}ee)`,
                     borderRadius: '24px',
                     border: `1px solid ${theme.primary}25`,
-                    boxShadow: '0 12px 40px rgba(0,0,0,0.1)'
+                    boxShadow: `0 12px 40px ${theme.shadow}`
                 }}
             >
                 <h3 style={{ color: theme.primary, fontWeight: 700, margin: '0 0 18px', fontSize: '1.6rem' }}>
@@ -648,13 +765,13 @@ function Project3({ theme, isDark }) {
                     <li><strong>F8</strong>: Contact Form → <em>Detected critical UX bug</em></li>
                 </ul>
             </motion.div>
-            {/* === 4. GANTT CHART === */}
+
+            {/* Gantt Chart */}
             <motion.div variants={childVariants} style={{ marginBottom: '64px' }}>
                 <h3 style={{ color: theme.primary, fontWeight: 700, marginBottom: '28px', fontSize: '1.6rem' }}>
                     4. Project Timeline
                 </h3>
 
-                {/* RESPONSIVE GRID: 1 col on mobile, 2 on desktop */}
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
@@ -668,13 +785,12 @@ function Project3({ theme, isDark }) {
                             style={{
                                 borderRadius: '24px',
                                 overflow: 'hidden',
-                                boxShadow: '0 15px 45px rgba(0,0,0,0.14)',
+                                boxShadow: `0 15px 45px ${theme.shadow}`,
                                 background: theme.surface,
                                 display: 'flex',
                                 flexDirection: 'column'
                             }}
                         >
-                            {/* Title */}
                             <div style={{
                                 padding: '16px 24px',
                                 background: `linear-gradient(to right, ${theme.primary}, ${theme.light})`,
@@ -685,7 +801,6 @@ function Project3({ theme, isDark }) {
                                 Gantt Chart – Part {i}
                             </div>
 
-                            {/* IMAGE: Full bleed, no white frame, curved bottom */}
                             <motion.div
                                 whileHover={{ scale: 1.03 }}
                                 whileTap={{ scale: 0.98 }}
@@ -693,7 +808,7 @@ function Project3({ theme, isDark }) {
                                 style={{
                                     flex: 1,
                                     minHeight: '480px',
-                                    background: isDark ? '#0f172a' : '#f8f9fa',
+                                    background: isDark ? darkTheme.bg : '#f8f9fa',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
@@ -712,7 +827,7 @@ function Project3({ theme, isDark }) {
                                         width: '100%',
                                         height: '100%',
                                         objectFit: 'contain',
-                                        padding: '16px', // Keeps image from touching edges
+                                        padding: '16px',
                                         boxSizing: 'border-box'
                                     }}
                                 />
@@ -722,7 +837,7 @@ function Project3({ theme, isDark }) {
                 </div>
             </motion.div>
 
-            {/* === 5. TEST ENVIRONMENT === */}
+            {/* Test Environment */}
             <motion.div variants={childVariants} style={{ marginBottom: '64px' }}>
                 <h3 style={{ color: theme.primary, fontWeight: 700, marginBottom: '24px', fontSize: '1.6rem' }}>
                     5. Test Environment
@@ -733,23 +848,23 @@ function Project3({ theme, isDark }) {
                     borderRadius: '20px',
                     border: `1px solid ${theme.primary}25`,
                     fontSize: '1.05rem',
-                    boxShadow: '0 8px 30px rgba(0,0,0,0.06)'
+                    boxShadow: `0 8px 30px ${theme.shadow}`
                 }}>
                     <ul style={{ margin: 0, paddingLeft: '28px', lineHeight: 2 }}>
                         <li><strong>Platform</strong>: macOS (Apple Silicon M2)</li>
                         <li><strong>Browser</strong>: Chrome 129+</li>
                         <li><strong>Tools</strong>: Selenium (Python), TestCafe (JS), VS Code</li>
-                        <li><strong>Setup</strong>: <code style={{ background: theme.primary + '18', padding: '3px 8px', borderRadius: '8px', fontSize: '0.9rem' }}>brew install python node chromedriver</code></li>
+                        <li><strong>Setup</strong>: <code style={{ background: `${theme.primary}18`, padding: '3px 8px', borderRadius: '8px', fontSize: '0.9rem' }}>brew install python node chromedriver</code></li>
                     </ul>
                 </div>
             </motion.div>
 
-            {/* === 6. TEST RESULTS === */}
+            {/* Test Results */}
             <motion.div variants={childVariants} style={{ marginBottom: '64px' }}>
                 <h3 style={{ color: theme.primary, fontWeight: 700, marginBottom: '24px', fontSize: '1.6rem' }}>
                     6. Test Results
                 </h3>
-                <div style={{ overflowX: 'auto', borderRadius: '20px', border: `1px solid ${theme.primary}25`, boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}>
+                <div style={{ overflowX: 'auto', borderRadius: '20px', border: `1px solid ${theme.primary}25`, boxShadow: `0 8px 30px ${theme.shadow}` }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.98rem' }}>
                         <thead>
                             <tr style={{ background: theme.primary, color: 'white' }}>
@@ -778,7 +893,7 @@ function Project3({ theme, isDark }) {
                                             borderRadius: '14px',
                                             fontSize: '0.88rem',
                                             fontWeight: 600,
-                                            background: t.result === 'PASS' ? theme.success + '18' : theme.danger + '18',
+                                            background: t.result === 'PASS' ? `${theme.success}18` : `${theme.danger}18`,
                                             color: t.result === 'PASS' ? theme.success : theme.danger,
                                             border: `1px solid ${t.result === 'PASS' ? theme.success : theme.danger}`
                                         }}>
@@ -796,29 +911,29 @@ function Project3({ theme, isDark }) {
                 </div>
             </motion.div>
 
-            {/* === 7. CODE SAMPLES === */}
+            {/* Sample Code */}
             <motion.div variants={childVariants} style={{ marginBottom: '64px' }}>
                 <h3 style={{ color: theme.primary, fontWeight: 700, marginBottom: '28px', fontSize: '1.6rem' }}>
                     7. Sample Code
                 </h3>
 
-                {/* Selenium */}
                 <motion.div
                     whileHover={{ y: -6 }}
                     transition={{ type: "spring", stiffness: 350 }}
-                    style={{ marginBottom: '36px', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 15px 45px rgba(0,0,0,0.14)' }}
+                    style={{ marginBottom: '36px', borderRadius: '24px', overflow: 'hidden', boxShadow: `0 15px 45px ${theme.shadow}` }}
                 >
                     <div style={{ background: theme.primary, color: 'white', padding: '16px 24px', fontWeight: 600 }}>
                         T001: Search Product (Selenium Python)
                     </div>
                     <pre style={{
                         margin: 0,
-                        background: isDark ? '#0d1117' : '#fafafa',
+                        background: isDark ? darkTheme.codeBg : lightTheme.codeBg,
                         padding: '24px',
                         fontSize: '0.92rem',
                         overflowX: 'auto',
                         fontFamily: 'SF Mono, Consolas, monospace',
-                        lineHeight: 1.7
+                        lineHeight: 1.7,
+                        border: `1px solid ${isDark ? darkTheme.codeBorder : lightTheme.codeBorder}`
                     }}>
                         {`from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -863,23 +978,23 @@ finally:
                     </pre>
                 </motion.div>
 
-                {/* TestCafe */}
                 <motion.div
                     whileHover={{ y: -6 }}
                     transition={{ type: "spring", stiffness: 350 }}
-                    style={{ borderRadius: '24px', overflow: 'hidden', boxShadow: '0 15px 45px rgba(0,0,0,0.14)' }}
+                    style={{ borderRadius: '24px', overflow: 'hidden', boxShadow: `0 15px 45px ${theme.shadow}` }}
                 >
                     <div style={{ background: theme.primary, color: 'white', padding: '16px 24px', fontWeight: 600 }}>
                         T003: Contact Form (TestCafe JS)
                     </div>
                     <pre style={{
                         margin: 0,
-                        background: isDark ? '#0d1117' : '#fafafa',
+                        background: isDark ? darkTheme.codeBg : lightTheme.codeBg,
                         padding: '24px',
                         fontSize: '0.92rem',
                         overflowX: 'auto',
                         fontFamily: 'SF Mono, Consolas, monospace',
-                        lineHeight: 1.7
+                        lineHeight: 1.7,
+                        border: `1px solid ${isDark ? darkTheme.codeBorder : lightTheme.codeBorder}`
                     }}>
                         {`import { Selector } from 'testcafe';
 
@@ -913,15 +1028,15 @@ test('Submit contact form and verify success message', async t => {
                 </motion.div>
             </motion.div>
 
-            {/* === 8. ANALYSIS === */}
+            {/* Analysis & Reflections */}
             <motion.div
                 variants={childVariants}
                 style={{
                     padding: '36px',
-                    background: `linear-gradient(145deg, ${theme.surface}, ${theme.surface}ff)`,
+                    background: `linear-gradient(145deg, ${theme.surface}, ${theme.surface}ee)`,
                     borderRadius: '24px',
                     border: `1px solid ${theme.primary}25`,
-                    boxShadow: '0 18px 50px rgba(0,0,0,0.12)'
+                    boxShadow: `0 18px 50px ${theme.shadow}`
                 }}
             >
                 <h3 style={{ color: theme.primary, fontWeight: 700, margin: '0 0 22px', fontSize: '1.6rem' }}>
@@ -933,53 +1048,63 @@ test('Submit contact form and verify success message', async t => {
                     <li>Used <strong>mixed automation stack</strong> for optimal coverage</li>
                     <li>Future: <strong>CI/CD pipeline + data-driven tests</strong></li>
                 </ul>
-                <p style={{ marginTop: '24px', fontStyle: 'italic', color: theme.text + 'cc', fontSize: '1.08rem' }}>
+                <p style={{ marginTop: '24px', fontStyle: 'italic', color: theme.mutedText, fontSize: '1.08rem' }}>
                     This project demonstrated how structured automation reveals real-world issues early.
                 </p>
             </motion.div>
         </motion.div>
     );
 }
-function Overview({ theme }) {
-    return (
-        <motion.div variants={fadeIn} initial="hidden" animate="visible" style={sectionStyle(theme)}>
-            <h2 style={titleStyle(theme)}>Full Testing Lifecycle</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginTop: '30px' }}>
-                <FeatureCard icon={<FileText />} title="Project 1" desc="Static + FMEA: 40 issues" />
-                <FeatureCard icon={<Code />} title="Project 2" desc="B/W-Box: 37 cases" />
-                <FeatureCard icon={<Globe />} title="Project 3" desc="E2E: 88% pass" />
-            </div>
-        </motion.div>
-    );
-}
 
-function Impact({ theme }) {
+// === Impact Tab ===
+function Impact({ theme, isDark }) {
     return (
-        <motion.div variants={fadeIn} initial="hidden" animate="visible" style={sectionStyle(theme)}>
+        <motion.div variants={fadeIn} initial="hidden" animate="visible" style={sectionStyle(theme, isDark)}>
             <h2 style={titleStyle(theme)}>Business Impact</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px', marginTop: '30px' }}>
-                <ImpactBox title="Bugs Prevented" value="60+" desc="Across lifecycle" />
-                <ImpactBox title="Cost Saved" value="10x" desc="Early detection" />
-                <ImpactBox title="Risk Reduced" value="88%" desc="Critical paths" />
+                <ImpactBox title="Bugs Prevented" value="60+" desc="Across lifecycle" theme={theme} isDark={isDark} />
+                <ImpactBox title="Cost Saved" value="10x" desc="Early detection" theme={theme} isDark={isDark} />
+                <ImpactBox title="Risk Reduced" value="88%" desc="Critical paths" theme={theme} isDark={isDark} />
             </div>
         </motion.div>
     );
 }
 
-// === REUSABLE COMPONENTS ===
-const iconBtn = { background: 'transparent', border: 'none', cursor: 'pointer', padding: '8px', borderRadius: '8px' };
-// const ctaBtn = { background: 'white', color: '#5DADE2', padding: '14px 32px', borderRadius: '50px', fontWeight: 600, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' };
-const sectionStyle = (t) => ({ background: t.surface, padding: '40px', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' });
-const titleStyle = (t) => ({ fontSize: '2rem', fontWeight: 700, textAlign: 'center', margin: '0 0 10px', color: t.text });
+// === Reusable Components ===
+
+const sectionStyle = (t, isDark) => ({
+    background: t.surface,
+    padding: '40px',
+    borderRadius: '20px',
+    boxShadow: `0 10px 40px ${isDark ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.08)'}`,
+    marginBottom: '40px'
+});
+
+const titleStyle = (t) => ({
+    fontSize: '2rem',
+    fontWeight: 700,
+    textAlign: 'center',
+    margin: '0 0 10px',
+    color: t.text
+});
+
 const th = { padding: '14px', textAlign: 'left', fontWeight: 600 };
 const td = { padding: '12px', borderBottom: '1px solid #E2E8F0', fontSize: '0.85rem' };
 
-function ImpactCard({ icon, value, label }) {
+function ImpactCard({ icon, value, label, theme, isDark }) {
     return (
-        <motion.div whileHover={{ y: -8 }} style={{ background: 'rgba(255,255,255,0.2)', padding: '20px 30px', borderRadius: '16px', minWidth: '160px', textAlign: 'center' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: '8px' }}>{icon}</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: 'white' }}>{value}</div>
-            <div style={{ fontSize: '0.9rem', opacity: 0.9, color: 'white' }}>{label}</div>
+        <motion.div whileHover={{ y: -8 }} style={{
+            background: isDark ? 'rgba(30,41,59,0.5)' : 'rgba(255,255,255,0.2)',
+            padding: '20px 30px',
+            borderRadius: '16px',
+            minWidth: '160px',
+            textAlign: 'center',
+            border: `1px solid ${theme.primary}30`,
+            backdropFilter: 'blur(8px)',
+        }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '8px', color: theme.primary }}>{icon}</div>
+            <div style={{ fontSize: '2rem', fontWeight: 800, color: theme.text }}>{value}</div>
+            <div style={{ fontSize: '0.9rem', opacity: 0.9, color: theme.mutedText }}>{label}</div>
         </motion.div>
     );
 }
@@ -991,42 +1116,65 @@ function MethodCard({ method, tests, desc, theme }) {
             padding: '15px',
             borderRadius: '12px',
             marginBottom: '15px',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+            boxShadow: `0 4px 15px ${theme.shadow}`,
             border: `1px solid ${theme.primary}30`
         }}>
             <h4 style={{ margin: 0, color: theme.primary, fontWeight: 600 }}>{method}</h4>
-            <p style={{ fontSize: '0.9rem', color: theme.text, opacity: 0.8 }}>
+            <p style={{ fontSize: '0.9rem', color: theme.mutedText, opacity: 0.8 }}>
                 <strong>{tests} tests:</strong> {desc}
             </p>
         </motion.div>
     );
 }
 
-function FeatureCard({ icon, title, desc }) {
+function FeatureCard({ icon, title, desc, theme }) {
     return (
-        <motion.div whileHover={{ y: -8 }} style={{ background: '#FFFFFF', padding: '24px', borderRadius: '16px', boxShadow: '0 8px 25px rgba(0,0,0,0.08)', textAlign: 'center' }}>
-            <div style={{ fontSize: '2.5rem', color: '#5DADE2', marginBottom: '16px' }}>{icon}</div>
-            <h3 style={{ margin: '0 0 12px', fontSize: '1.2rem' }}>{title}</h3>
-            <p style={{ margin: 0, color: '#64748B', fontSize: '0.95rem' }}>{desc}</p>
+        <motion.div whileHover={{ y: -8 }} style={{
+            background: theme.surface,
+            padding: '24px',
+            borderRadius: '16px',
+            boxShadow: `0 8px 25px ${theme.shadow}`,
+            textAlign: 'center',
+            border: `1px solid ${theme.border}`
+        }}>
+            <div style={{ fontSize: '2.5rem', color: theme.primary, marginBottom: '16px' }}>{icon}</div>
+            <h3 style={{ margin: '0 0 12px', fontSize: '1.2rem', color: theme.text }}>{title}</h3>
+            <p style={{ margin: 0, color: theme.mutedText, fontSize: '0.95rem' }}>{desc}</p>
         </motion.div>
     );
 }
 
-function ImpactBox({ title, value, desc }) {
+function ImpactBox({ title, value, desc, theme, isDark }) {
     return (
-        <motion.div whileHover={{ scale: 1.03 }} style={{ background: `linear-gradient(135deg, #A7C7E7 0%, #5DADE2 100%)`, color: 'white', padding: '30px', borderRadius: '16px', textAlign: 'center' }}>
-            <div style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '8px' }}>{value}</div>
+        <motion.div whileHover={{ scale: 1.03 }} style={{
+            background: `linear-gradient(135deg, ${theme.primary}33, ${theme.light}22)`,
+            color: theme.text,
+            padding: '30px',
+            borderRadius: '16px',
+            textAlign: 'center',
+            border: `1px solid ${theme.primary}40`,
+            boxShadow: `0 8px 25px ${theme.shadow}`
+        }}>
+            <div style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '8px', color: theme.primary }}>{value}</div>
             <h4 style={{ margin: '0 0 8px' }}>{title}</h4>
-            <p style={{ margin: 0, fontSize: '0.9rem', opacity: 0.9 }}>{desc}</p>
+            <p style={{ margin: 0, fontSize: '0.9rem', opacity: 0.9, color: theme.mutedText }}>{desc}</p>
         </motion.div>
     );
 }
 
 function Badge({ text, color }) {
     return (
-        <span style={{ background: color, color: 'white', padding: '4px 10px', borderRadius: '50px', fontSize: '0.75rem', fontWeight: 600, display: 'inline-block', margin: '2px' }}>
+        <span style={{
+            background: color,
+            color: 'white',
+            padding: '4px 10px',
+            borderRadius: '50px',
+            fontSize: '0.75rem',
+            fontWeight: 600,
+            display: 'inline-block',
+            margin: '2px'
+        }}>
             {text}
         </span>
     );
 }
-//test

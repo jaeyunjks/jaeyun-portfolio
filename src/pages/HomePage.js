@@ -153,7 +153,7 @@ export default function HomePage() {
                     width: "100%",
                     opacity: 0.95,
                 }}>
-                    Bachelor of Information Technology | Open for 2025&2026 Internship
+                    Bachelor of Information Technology | Open for 2026 Internship / Graduate Roles
                     <br />
                     <span style={{
                         fontSize: isMobile ? 13.5 : 18,

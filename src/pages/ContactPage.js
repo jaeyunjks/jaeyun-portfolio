@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
+import { useTheme } from "../context/ThemeContext";
 
 /* ────────────────────── CONSTANTS ────────────────────── */
 const COLORS = {
@@ -10,12 +11,6 @@ const COLORS = {
     border: "#CAD3E2",
     shadow: "#e6f0f925",
     hover: "#E1E8F7",
-};
-
-const SHADOWS = {
-    light: "0 2px 12px #e6f0f925",
-    avatar: "0 4px 12px rgba(0,0,0,0.08)",
-    button: "0 2px 12px #7B9ACC44",
 };
 
 /* ────────────────────── RESPONSIVE HOOK ────────────────────── */
@@ -49,6 +44,8 @@ function FormInput({ name, placeholder, type = "text", required, rows, style = {
                 padding: isMobile ? 10 : 12,
                 resize: type === "textarea" ? "vertical" : "none",
                 minHeight: type === "textarea" ? (isMobile ? 64 : 90) : "auto",
+                background: "rgba(255,255,255,0.1)",
+                color: "var(--text-primary)",
                 ...style,
             }}
         />
@@ -59,6 +56,7 @@ function FormInput({ name, placeholder, type = "text", required, rows, style = {
 export default function ContactPage() {
     const form = useRef();
     const isMobile = useIsMobile();
+    const { theme } = useTheme();
     const today = new Date().toLocaleString();
 
     const sendEmail = (e) => {
@@ -81,7 +79,7 @@ export default function ContactPage() {
             style={{
                 maxWidth: isMobile ? "98vw" : 960,
                 margin: isMobile ? "30px auto 10px" : "80px auto 32px",
-                color: COLORS.text,
+                color: "var(--text-primary)",
                 padding: isMobile ? "0 4vw" : "0 15px",
                 fontFamily: "'Segoe UI', Arial, sans-serif",
             }}
@@ -90,10 +88,11 @@ export default function ContactPage() {
             <h1
                 style={{
                     fontWeight: 900,
-                    fontSize: isMobile ? 28 : 38,
-                    color: COLORS.primary,
-                    marginBottom: isMobile ? 15 : 24,
+                    fontSize: isMobile ? 32 : 44,
+                    color: "var(--accent)",
+                    marginBottom: isMobile ? 20 : 32,
                     textAlign: "center",
+                    textShadow: theme === "dark" ? "0 2px 12px rgba(165,214,255,0.35)" : "none",
                 }}
             >
                 Contact Me
@@ -102,10 +101,13 @@ export default function ContactPage() {
             {/* Intro */}
             <p
                 style={{
-                    fontSize: isMobile ? 15 : 18,
-                    marginBottom: isMobile ? 18 : 23,
+                    fontSize: isMobile ? 16 : 18,
+                    marginBottom: isMobile ? 20 : 28,
                     textAlign: "center",
-                    lineHeight: 1.6,
+                    lineHeight: 1.7,
+                    color: "var(--text-primary)",
+                    textShadow: theme === "dark" ? "0 1px 6px rgba(0,0,0,0.7)" : "none",
+                    opacity: theme === "dark" ? 0.98 : 0.95,
                 }}
             >
                 Thank you for your interest in getting in touch!<br />
@@ -117,29 +119,29 @@ export default function ContactPage() {
             {/* Social Links */}
             <div
                 style={{
-                    fontSize: isMobile ? 15 : 20,
+                    fontSize: isMobile ? 16 : 20,
                     fontWeight: 700,
-                    margin: isMobile ? 12 : 20,
+                    margin: isMobile ? 16 : 24,
                     display: "flex",
                     flexDirection: isMobile ? "column" : "row",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: isMobile ? 8 : 28,
+                    gap: isMobile ? 12 : 32,
                 }}
             >
                 <a
                     href="https://www.linkedin.com/in/yafiefarabi0710/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: COLORS.primary, textDecoration: "none" }}
+                    style={{ color: "var(--accent)", textDecoration: "none" }}
                 >
                     LinkedIn
                 </a>
                 <a
                     href="mailto:yaafiiee.10@gmail.com"
-                    style={{ color: COLORS.primary, textDecoration: "none" }}
+                    style={{ color: "var(--accent)", textDecoration: "none" }}
                 >
-                    yaafiiee.10@gmail.com
+                    Mail
                 </a>
             </div>
 
@@ -150,23 +152,24 @@ export default function ContactPage() {
                     flexDirection: isMobile ? "column" : "row",
                     alignItems: "flex-start",
                     justifyContent: "center",
-                    gap: isMobile ? 20 : 40,
-                    marginTop: isMobile ? 30 : 50,
+                    gap: isMobile ? 24 : 48,
+                    marginTop: isMobile ? 32 : 60,
                 }}
             >
                 {/* Picture Placeholder */}
                 <div
                     style={{
                         flexShrink: 0,
-                        width: isMobile ? 120 : 160,
-                        height: isMobile ? 120 : 160,
+                        width: isMobile ? 140 : 180,
+                        height: isMobile ? 140 : 180,
                         borderRadius: "50%",
-                        background: "#E6EBF5",
+                        background: "rgba(255,255,255,0.1)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         overflow: "hidden",
-                        boxShadow: SHADOWS.avatar,
+                        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+                        border: "2px solid rgba(165,214,255,0.3)",
                     }}
                 >
                     <img
@@ -182,17 +185,22 @@ export default function ContactPage() {
                     onSubmit={sendEmail}
                     style={{
                         flex: 1,
-                        maxWidth: isMobile ? "100%" : 420,
-                        background: COLORS.light,
-                        borderRadius: 14,
-                        padding: isMobile ? "16px 6vw" : "32px",
-                        boxShadow: SHADOWS.light,
+                        maxWidth: isMobile ? "100%" : 480,
+                        background: theme === "dark" ? "rgba(30, 41, 59, 0.45)" : COLORS.light,
+                        backdropFilter: theme === "dark" ? "blur(16px)" : "none",
+                        WebkitBackdropFilter: theme === "dark" ? "blur(16px)" : "none",
+                        borderRadius: 20,
+                        padding: isMobile ? "20px 6vw" : "40px",
+                        border: theme === "dark" ? "1px solid rgba(165,214,255,0.25)" : "1px solid #CAD3E2",
+                        boxShadow: theme === "dark"
+                            ? "0 16px 48px rgba(0,0,0,0.5), inset 0 0 24px rgba(165,214,255,0.12)"
+                            : "0 4px 20px rgba(0,0,0,0.1)",
                     }}
                 >
                     <FormInput name="name" placeholder="Your Name" required />
                     <FormInput name="user_email" placeholder="Your Email" type="email" required />
                     <FormInput name="subject" placeholder="Subject" required />
-                    <FormInput name="message" placeholder="Your message" type="textarea" required rows={4} />
+                    <FormInput name="message" placeholder="Your message" type="textarea" required rows={5} />
 
                     <input type="hidden" name="time" value={today} />
 
@@ -200,20 +208,26 @@ export default function ContactPage() {
                         type="submit"
                         style={{
                             width: "100%",
-                            background: COLORS.primary,
+                            background: "var(--accent)",
                             color: "#fff",
                             fontWeight: 800,
-                            fontSize: isMobile ? 15 : 17,
+                            fontSize: isMobile ? 16 : 18,
                             border: 0,
-                            borderRadius: 10,
-                            padding: isMobile ? "11px 0" : "14px 0",
-                            marginTop: 8,
+                            borderRadius: 12,
+                            padding: isMobile ? "12px 0" : "14px 0",
+                            marginTop: 12,
                             cursor: "pointer",
-                            boxShadow: SHADOWS.button,
-                            transition: "background .2s",
+                            boxShadow: "0 6px 20px rgba(123,154,204,0.4)",
+                            transition: "all 0.25s ease",
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = COLORS.secondary)}
-                        onMouseLeave={(e) => (e.currentTarget.style.background = COLORS.primary)}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-3px)";
+                            e.currentTarget.style.boxShadow = "0 10px 30px rgba(123,154,204,0.5)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "0 6px 20px rgba(123,154,204,0.4)";
+                        }}
                     >
                         Send Message
                     </button>
@@ -223,9 +237,9 @@ export default function ContactPage() {
             {/* Footer */}
             <p
                 style={{
-                    marginTop: 40,
+                    marginTop: 48,
                     fontSize: 13,
-                    color: "#7788AA",
+                    color: "var(--text-secondary)",
                     textAlign: "center",
                 }}
             >

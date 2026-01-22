@@ -340,7 +340,7 @@ export default function WorkPage() {
                 textAlign: isMobile ? "center" : "left",
                 textShadow: theme === "dark" ? "0 2px 12px rgba(165,214,255,0.35)" : "none",
             }}>
-                Work & Project Experience
+                Work Experiences
             </h1>
 
             <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 24 : 36 }}>

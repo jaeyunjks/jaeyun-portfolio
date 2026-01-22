@@ -1,28 +1,30 @@
 // src/context/ThemeContext.js
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
     const [theme, setTheme] = useState(() => {
-        // Prioritas: localStorage > system preference > default 'dark'
-        const saved = localStorage.getItem('theme');
-        if (saved) return saved;
-
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // Cek localStorage atau prefers-color-scheme
+        if (localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             return 'dark';
         }
         return 'light';
     });
 
     useEffect(() => {
-        document.documentElement.classList.remove('light', 'dark');
-        document.documentElement.classList.add(theme);
-        localStorage.setItem('theme', theme);
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            localStorage.theme = 'dark';
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
     }, [theme]);
 
     const toggleTheme = () => {
-        setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+        setTheme(prev => prev === 'light' ? 'dark' : 'light');
     };
 
     return (
@@ -32,4 +34,6 @@ export function ThemeProvider({ children }) {
     );
 }
 
-export const useTheme = () => useContext(ThemeContext);
+export function useTheme() {
+    return useContext(ThemeContext);
+}

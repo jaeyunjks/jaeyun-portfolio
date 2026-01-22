@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 // Responsive hook
 function useIsMobile(breakpoint = 600) {
@@ -15,7 +16,6 @@ function useIsMobile(breakpoint = 600) {
 
     return isMobile;
 }
-
 const PROJECTS = [
     {
         id: 5,
@@ -203,31 +203,36 @@ export default function PortfolioPage() {
     const [expanded, setExpanded] = useState(null);
     const [hoveredId, setHoveredId] = useState(null);
     const isMobile = useIsMobile();
+    const { theme } = useTheme();
+
+    const isDark = theme === "dark";
 
     return (
         <div style={{
             maxWidth: isMobile ? "99vw" : 900,
             margin: isMobile ? "16px auto" : "52px auto",
-            padding: isMobile ? "0 3vw" : "0 18px"
+            padding: isMobile ? "0 3vw" : "0 18px",
+            color: "var(--text-primary)",
         }}>
             {/* Title */}
             <h1 style={{
                 fontWeight: 900,
                 fontSize: isMobile ? 24 : 38,
-                color: "#7B9ACC",
+                color: isDark ? "var(--accent)" : "#7B9ACC",
                 marginBottom: isMobile ? 16 : 32,
                 textAlign: isMobile ? "center" : "left",
+                textShadow: isDark ? "0 2px 12px rgba(165,214,255,0.35)" : "none",
                 opacity: 0,
-                animation: "fadeInDown 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards"
+                animation: "fadeInDown 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
             }}>
-                My Portfolio
+                My Projects
             </h1>
 
             {/* Grid */}
             <div style={{
                 display: "grid",
                 gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-                gap: isMobile ? 16 : 36
+                gap: isMobile ? 16 : 36,
             }}>
                 {PROJECTS.map((p, index) => {
                     const isExpanded = expanded === p.id;
@@ -240,50 +245,60 @@ export default function PortfolioPage() {
                             onMouseLeave={() => !isMobile && setHoveredId(null)}
                             onClick={() => setExpanded(isExpanded ? null : p.id)}
                             style={{
-                                background: "#EDF2FB",
-                                borderRadius: 20,
+                                background: isDark
+                                    ? "rgba(30, 41, 59, 0.45)"  // glassy dark
+                                    : "#EDF2FB",
+                                backdropFilter: isDark ? "blur(16px)" : "none",
+                                WebkitBackdropFilter: isDark ? "blur(16px)" : "none",
+                                borderRadius: 24,
                                 overflow: "hidden",
                                 boxShadow: isHovered || isExpanded
-                                    ? "0 16px 36px rgba(123, 154, 204, 0.24)"
-                                    : "0 4px 18px #c0c7ef18",
+                                    ? isDark
+                                        ? "0 16px 48px rgba(0,0,0,0.5), inset 0 0 24px rgba(165,214,255,0.12)"
+                                        : "0 16px 36px rgba(123,154,204,0.24)"
+                                    : isDark
+                                        ? "0 8px 32px rgba(0,0,0,0.4)"
+                                        : "0 4px 18px #c0c7ef18",
                                 cursor: "pointer",
-                                border: isExpanded ? "3px solid #7B9ACC" : "1.5px solid #e3e8f2",
+                                border: isExpanded
+                                    ? isDark ? "1px solid rgba(165,214,255,0.3)" : "3px solid #7B9ACC"
+                                    : isDark ? "1px solid rgba(165,214,255,0.18)" : "1.5px solid #e3e8f2",
                                 transition: "all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                                transform: isHovered && !isMobile
-                                    ? "translateY(-8px) scale(1.025)"
+                                transform: (isHovered || isExpanded) && !isMobile
+                                    ? "translateY(-8px) scale(1.03)"
                                     : "translateY(0) scale(1)",
                                 opacity: 0,
-                                animation: `fadeInUp 0.6s ease-out ${index * 0.12}s forwards`
+                                animation: `fadeInUp 0.6s ease-out ${index * 0.12}s forwards`,
                             }}
                         >
                             {/* Image */}
                             <div style={{
                                 position: "relative",
-                                overflow: "hidden"
+                                overflow: "hidden",
                             }}>
                                 <img
                                     src={p.img}
                                     alt={p.title}
                                     style={{
                                         width: "100%",
-                                        height: isMobile ? 120 : 170,
+                                        height: isMobile ? 140 : 200,
                                         objectFit: "cover",
                                         transition: "transform 0.5s ease",
-                                        transform: isHovered && !isMobile ? "scale(1.06)" : "scale(1)"
+                                        transform: (isHovered || isExpanded) && !isMobile ? "scale(1.08)" : "scale(1)",
                                     }}
                                 />
                             </div>
 
                             {/* Content */}
                             <div style={{
-                                padding: isMobile ? "14px 12px" : "22px 20px"
+                                padding: isMobile ? "16px 14px" : "24px 22px",
                             }}>
                                 <div style={{
                                     fontWeight: 700,
-                                    fontSize: isMobile ? 15.5 : 22,
+                                    fontSize: isMobile ? 16 : 23,
                                     marginBottom: 8,
-                                    color: "#232751",
-                                    lineHeight: 1.3
+                                    color: isDark ? "var(--accent)" : "#232751",
+                                    lineHeight: 1.3,
                                 }}>
                                     {p.title}
                                 </div>
@@ -292,24 +307,24 @@ export default function PortfolioPage() {
                                 <div style={{
                                     display: "flex",
                                     flexWrap: "wrap",
-                                    gap: isMobile ? 6 : 9,
-                                    marginBottom: 10
+                                    gap: isMobile ? 8 : 10,
+                                    marginBottom: 12,
                                 }}>
                                     {p.tech?.map((t, i) => (
                                         <span
                                             key={i}
                                             style={{
-                                                background: "#D0DEFA",
-                                                color: "#232751",
+                                                background: isDark ? "rgba(165,214,255,0.18)" : "#D0DEFA",
+                                                color: isDark ? "#e2e8f0" : "#232751",
                                                 fontSize: isMobile ? 11 : 13.5,
                                                 fontWeight: 600,
-                                                padding: isMobile ? "4px 9px" : "5px 12px",
-                                                borderRadius: 10,
-                                                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                                                transform: isHovered && !isMobile ? "scale(1.12)" : "scale(1)",
-                                                boxShadow: isHovered && !isMobile
-                                                    ? "0 3px 8px rgba(0,0,0,0.12)"
-                                                    : "0 1px 3px rgba(0,0,0,0.06)"
+                                                padding: isMobile ? "5px 10px" : "6px 14px",
+                                                borderRadius: 12,
+                                                transition: "all 0.3s ease",
+                                                transform: (isHovered || isExpanded) && !isMobile ? "scale(1.1)" : "scale(1)",
+                                                boxShadow: (isHovered || isExpanded) && !isMobile
+                                                    ? isDark ? "0 3px 10px rgba(165,214,255,0.3)" : "0 3px 8px rgba(0,0,0,0.12)"
+                                                    : "none",
                                             }}
                                         >
                                             {t}
@@ -318,52 +333,52 @@ export default function PortfolioPage() {
                                 </div>
 
                                 <div style={{
-                                    fontSize: isMobile ? 12 : 15.2,
-                                    color: "#2d3748",
-                                    opacity: 0.85,
-                                    lineHeight: 1.55,
-                                    marginBottom: 8
+                                    fontSize: isMobile ? 13 : 15.5,
+                                    color: isDark ? "var(--text-primary)" : "#2d3748",
+                                    opacity: 0.9,
+                                    lineHeight: 1.6,
+                                    marginBottom: 8,
                                 }}>
                                     {p.summary}
                                 </div>
 
                                 <div style={{
-                                    fontSize: isMobile ? 11 : 14,
-                                    color: "#5a67d8",
+                                    fontSize: isMobile ? 11 : 13.5,
+                                    color: isDark ? "var(--text-secondary)" : "#5a67d8",
                                     fontStyle: "italic",
-                                    opacity: 0.75,
-                                    marginBottom: 4
+                                    opacity: 0.8,
+                                    marginBottom: 4,
                                 }}>
                                     Click for details
                                 </div>
                             </div>
 
-                            {/* Expandable Panel */}
+                            {/* Expandable Panel – glassy juga di dark */}
                             <div style={{
-                                maxHeight: isExpanded ? "800px" : "0",
+                                maxHeight: isExpanded ? "1200px" : "0",
                                 opacity: isExpanded ? 1 : 0,
                                 overflow: "hidden",
                                 transition: "max-height 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease",
-                                background: "rgba(250, 252, 255, 0.95)",
-                                backdropFilter: "blur(10px)",
-                                WebkitBackdropFilter: "blur(10px)",
-                                borderTop: isExpanded ? "1px solid rgba(123,154,204,0.2)" : "none",
-                                padding: isExpanded ? (isMobile ? "16px 12px" : "20px") : "0 12px"
+                                background: isDark ? "rgba(30, 41, 59, 0.5)" : "rgba(250, 252, 255, 0.95)",
+                                backdropFilter: isDark ? "blur(12px)" : "blur(10px)",
+                                WebkitBackdropFilter: isDark ? "blur(12px)" : "blur(10px)",
+                                borderTop: isExpanded ? (isDark ? "1px solid rgba(165,214,255,0.2)" : "1px solid rgba(123,154,204,0.2)") : "none",
+                                padding: isExpanded ? (isMobile ? "16px 14px" : "24px 22px") : "0 14px",
                             }}>
                                 <div style={{
-                                    fontSize: isMobile ? 12.5 : 15,
-                                    color: "#1a202c",
-                                    lineHeight: 1.7
+                                    fontSize: isMobile ? 13.5 : 15.5,
+                                    color: isDark ? "var(--text-primary)" : "#1a202c",
+                                    lineHeight: 1.7,
                                 }}>
                                     {typeof p.details === "string" ? p.details : p.details}
                                 </div>
 
-                                {/* Buttons - Never Overlap */}
+                                {/* Buttons */}
                                 <div style={{
                                     display: "flex",
                                     gap: 12,
-                                    marginTop: 18,
-                                    flexWrap: "wrap"
+                                    marginTop: 20,
+                                    flexWrap: "wrap",
                                 }}>
                                     {p.github && (
                                         <a
@@ -371,24 +386,23 @@ export default function PortfolioPage() {
                                             target="_blank"
                                             rel="noreferrer"
                                             style={{
-                                                background: "#7B9ACC",
+                                                background: "var(--accent)",
                                                 color: "#fff",
                                                 borderRadius: 12,
                                                 textDecoration: "none",
                                                 fontWeight: 700,
-                                                padding: isMobile ? "10px 16px" : "11px 22px",
+                                                padding: isMobile ? "10px 16px" : "12px 22px",
                                                 fontSize: isMobile ? 13 : 15,
-                                                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                                                boxShadow: "0 3px 10px rgba(123,154,204,0.3)",
-                                                transform: "translateY(0)"
+                                                transition: "all 0.3s ease",
+                                                boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
                                             }}
                                             onMouseEnter={(e) => {
                                                 e.target.style.transform = "translateY(-3px)";
-                                                e.target.style.boxShadow = "0 6px 16px rgba(123,154,204,0.4)";
+                                                e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.4)";
                                             }}
                                             onMouseLeave={(e) => {
                                                 e.target.style.transform = "translateY(0)";
-                                                e.target.style.boxShadow = "0 3px 10px rgba(123,154,204,0.3)";
+                                                e.target.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
                                             }}
                                         >
                                             View Code
@@ -401,15 +415,15 @@ export default function PortfolioPage() {
                 })}
             </div>
 
-            {/* Global Animations */}
+            {/* Animations */}
             <style jsx>{`
-                @keyframes fadeInDown {
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                @keyframes fadeInUp {
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `}</style>
+        @keyframes fadeInDown {
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
         </div>
     );
 }
